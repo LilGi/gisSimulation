@@ -1,0 +1,111 @@
+.sr-only {
+  display: none;
+}
+
+.circle-magic-kingdom {
+  fill: none;
+  stroke: red;
+  stroke-width: 5px;
+  /* animation: AnimationName 29s ease infinite; */
+  animation: MagicKingdom infinite 5s;
+  transition: stroke-width .5s;
+}
+
+.circle-magic-kingdom:hover {
+  stroke-width: 15px;
+}
+
+.lineReverse {
+  stroke: yellow;
+  stroke-dasharray: 5 10 15;
+  stroke-dashoffset: 400;
+  animation: dash 7s linear reverse infinite;
+}
+.lineForward {
+  stroke: yellow;
+  stroke-dasharray: 15 10 5;
+  stroke-dashoffset: 400;
+  animation: dash 7s linear forwards infinite;
+}
+.lineStatic {
+  stroke: blue;
+
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.linePost {
+  fill-opacity: 0.65;
+  fill: #808080;
+	stroke-width: 1px;
+	opacity: 1;
+  stroke: #fff;
+  stroke-opacity: 1;
+}
+.building {
+  fill-opacity: 0.4;
+  fill: #964B00;
+	stroke-width: 1px;
+	opacity: 0.4;
+  stroke: #fff;
+  stroke-opacity: 1;
+}
+.t3 {
+  fill-opacity: 0.65;
+  fill: #000000;
+	stroke-width: 2px;
+	opacity: 1;
+  stroke: #ff0000;
+  stroke-opacity: 1;
+}
+.t1 {
+  fill-opacity: 0.65;
+  fill: #000000;
+	stroke-width: 2px;
+	opacity: 1;
+  stroke: #0051fffb;
+  stroke-opacity: 1;
+}
+
+.button:hover {
+  stroke: red;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
+
+
+@keyframes MagicKingdom {
+  0% {
+    stroke: red;
+  }
+  14% {
+    stroke: orange;
+  }
+  28% {
+    stroke: yellow;
+  }
+  43% {
+    stroke: lime;
+  }
+  57% {
+    stroke: blue;
+  }
+  71% {
+    stroke: blueviolet;
+  }
+  85% {
+    stroke: magenta;
+  }
+  100% {
+    stroke: red;
+  }
+}
