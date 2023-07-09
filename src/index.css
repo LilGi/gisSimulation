@@ -16,16 +16,22 @@
 }
 
 .lineReverse {
-  stroke: yellow;
+  stroke-width: 2px;
+  stroke: lightgreen;
   stroke-dasharray: 5 10 15;
   stroke-dashoffset: 400;
-  animation: dash 7s linear reverse infinite;
+  animation: dash 15s linear reverse infinite;
 }
 .lineForward {
-  stroke: yellow;
+  stroke-width: 2px;
+  stroke: lightgreen;
   stroke-dasharray: 15 10 5;
   stroke-dashoffset: 400;
-  animation: dash 7s linear forwards infinite;
+  animation: dash 15s linear forwards infinite;
+}
+.notMoving {
+  stroke: lightgreen;
+
 }
 .lineStatic {
   stroke: blue;
@@ -38,34 +44,50 @@
 }
 .linePost {
   fill-opacity: 0.65;
-  fill: #808080;
+  fill: #d1d1d1;
 	stroke-width: 1px;
 	opacity: 1;
-  stroke: #fff;
+  stroke: #000000;
   stroke-opacity: 1;
 }
 .building {
-  fill-opacity: 0.4;
+  fill-opacity: 0.6;
   fill: #964B00;
 	stroke-width: 1px;
-	opacity: 0.4;
-  stroke: #fff;
+	opacity: 1;
+  stroke: #000000;
+  stroke-opacity: 1;
+}
+.solarBuilding {
+  fill-opacity: 0.6;
+  fill: #fffe33;
+	stroke-width: 1px;
+	opacity: 1;
+  stroke: #000000;
   stroke-opacity: 1;
 }
 .t3 {
   fill-opacity: 0.65;
-  fill: #000000;
+  fill: #ff0000;
 	stroke-width: 2px;
 	opacity: 1;
-  stroke: #ff0000;
+  stroke: #000000;
   stroke-opacity: 1;
 }
 .t1 {
   fill-opacity: 0.65;
+  fill: #0051fffb;
+	stroke-width: 2px;
+	opacity: 1;
+  stroke: #000000;
+  stroke-opacity: 1;
+}
+.bigCirc {
+  fill-opacity: 0.3;
   fill: #000000;
 	stroke-width: 2px;
 	opacity: 1;
-  stroke: #0051fffb;
+  stroke: #000000;
   stroke-opacity: 1;
 }
 

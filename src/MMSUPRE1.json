@@ -3568,7 +3568,7 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-LIBRARY",
+                "name": "MMSU-LIBRARY/CFL",
                 "description": "solar",
                 "energyWDDay": 480,
                 "energyWDNight": 40,
@@ -3578,7 +3578,7 @@
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 200,
+                "capacity": 400,
                 "generation": 0,
                 "photoVoltaic": 0,
                 "energyStorage": 200
@@ -4536,8 +4536,8 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-CETC",
-                "description": null,
+                "name": "MMSU-CETC/MOTORPOOL",
+                "description": "solar",
                 "energyWDDay": 48,
                 "energyWDNight": 16,
                 "energyWEDay": 0,
@@ -4546,7 +4546,7 @@
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 0,
+                "capacity": 200,
                 "generation": 0,
                 "photoVoltaic": 0,
                 "energyStorage": 0
@@ -4756,16 +4756,16 @@
             },
             "properties": {
                 "name": "MMSU-CAFSD",
-                "description": "solar",
-                "energyWDDay": 259.2,
-                "energyWDNight": 43.2,
+                "description": null,
+                "energyWDDay": 0,
+                "energyWDNight": 0,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 50.976,
+                "demandWDDay": 0,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 180,
+                "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
                 "energyStorage": 0
@@ -5042,7 +5042,7 @@
             "properties": {
                 "name": "MMSU-FPIC",
                 "description": null,
-                "energyWDDay": 0,
+                "energyWDDay": 50,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
                 "energyWENight": 0,
@@ -5194,7 +5194,7 @@
             },
             "properties": {
                 "name": "MMSU-STUDENTCENTER",
-                "description": null,
+                "description": "solar",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -6445,7 +6445,7 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-COM",
+                "name": "MMSU-CHS/COM",
                 "description": "solar",
                 "energyWDDay": 330,
                 "energyWDNight": 50,
@@ -6455,7 +6455,7 @@
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 200,
+                "capacity": 380,
                 "generation": 0,
                 "photoVoltaic": 0,
                 "energyStorage": 0

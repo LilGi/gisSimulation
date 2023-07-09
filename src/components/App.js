@@ -3,15 +3,18 @@ import { MapContainer, TileLayer, LayersControl, GeoJSON } from 'react-leaflet'
 import luzon from '../SAMPLEE.json'
 import L from 'leaflet'; // Import the Leaflet library
 import { SnackBar } from './Snackbar'
+import { Legend } from './Legend'
 import mmsu from '../MMSUPRE1.json'
-import { Box, Button, Checkbox, CssBaseline, Drawer, FormControl, FormControlLabel, Grid, InputLabel, Link, MenuItem, Paper, Select, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, CssBaseline, Drawer, Grid, IconButton, InputAdornment, Link, MenuItem, Paper, Select, Switch, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography, styled } from '@mui/material';
 import Control from 'react-leaflet-custom-control'
+import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import {
 
-  Menu as MenuIcon,
+  Menu as MenuIcon, TroubleshootSharp,
 
 }
   from '@mui/icons-material'
+import { ClipLoader } from 'react-spinners';
 
 // const onEditPath = (e) => {
 //   console.log(e)
@@ -35,6 +38,7 @@ import {
 //     />
 //   </FeatureGroup>
 // );
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -47,28 +51,60 @@ function Copyright(props) {
     </Typography>
   );
 }
+const POSITION_CLASSES = {
+  bottomleft: 'leaflet-bottom leaflet-left',
+  bottomright: 'leaflet-bottom leaflet-right',
+  topleft: 'leaflet-top leaflet-left',
+  topright: 'leaflet-top leaflet-right',
+}
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+//table start
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}))
+
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}))
+//table end
 
 function App() {
 
   // const [newPolygon, setNewPolygon] = useState([])
   // const [newPolyline, setNewPolyline] = useState([])
-  const [energyFlow, setEnergyFlow] = useState(24)
-  const [powerFlow, setPowerFlow] = useState("Weekdays")
+  const [energyFlow, setEnergyFlow] = useState(1)
+  const [powerFlow, setPowerFlow] = useState(1)
   const [weather, setWeather] = useState(1)
-  const [mode, setMode] = useState("Day")
+  const [mode, setMode] = useState(1)
+  const [xValues, setXValues] = useState(null)
 
+  const [featureId, setFeatureId] = useState('')
+  const [building, setBuilding] = useState('')
+  const [demand, setDemand] = useState('')
+  const [energy, setEnergy] = useState('')
+  const [capacity, setCapacity] = useState('')
+  const [generation, setGeneration] = useState('')
+  const [eStorage, setEStorage] = useState('')
+  const [canSave, setCanSave] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [dummy, setDummy] = useState("none")
   const [items, setItems] = useState("none")
   const [active, setActive] = useState(false)
   const [checked, setChecked] = useState(false);
-  const [xValues, setXValues] = useState(null)
+
 
   const [openDrawer, setDrawer] = useState(false)
 
@@ -89,29 +125,120 @@ function App() {
   // const [selectedFeatureId, setSelectedFeatureId] = useState(null);
   const geoJsonLayerRef = useRef(null);
 
-  const printx = (id, demand, energy, capacity, generation) => {
-    let buffer = items
-    buffer[id].properties.demand = demand
-    buffer[id].properties.energy = energy
-    buffer[id].properties.capacity = capacity
-    buffer[id].properties.generation = generation
-    setItems(buffer)
+
+  const applyParam = () => {
+
+  let buffer = dummy
+  buffer[featureId].properties.demandWDDay = demand
+  buffer[featureId].properties.energyWDDay = energy
+  buffer[featureId].properties.capacity = capacity
+  buffer[featureId].properties.generation = generation
+  setDummy(buffer)
+
+  setCanSave(false)
+}
+
+  const onDemandChanged = (e) => {
+    setDemand(parseFloat(e.target.value))
+    setCanSave(true)
   }
 
+  const onEnergyChanged = (e) => {
+    setEnergy(parseFloat(e.target.value))
+    setCanSave(true)
+  }
+
+  const onCapacityChanged = (e) => {
+    setCapacity(parseFloat(e.target.value))
+    setCanSave(true)
+  }
+
+  const onGenerationChanged = (e) => {
+    setGeneration(parseFloat(e.target.value))
+    setCanSave(true)
+  }
+
+  const onEStorageChanged = (e) => {
+    setEStorage(parseFloat(e.target.value))
+    setCanSave(true)
+  }
+
+  useEffect(()=>{
+
+    let newItems = []
+    Object.values(items).map((object, index) => {
+      newItems = [...newItems, { ...object, properties: { ...object.properties, 
+        id: index, 
+        demandWDDay: object?.properties?.demandWDDay*powerFlow*mode,
+        energyWDDay: object?.properties?.energyWDDay*energyFlow*powerFlow,
+        capacity: object?.properties?.capacity,
+        generation: object?.properties?.capacity*4.7*energyFlow*weather
+       
+      }
+      
+      }]
+    })
+    setLoading(true)
+    // setItems(newItems)
+    setTimeout(()=>{
+      setLoading(false)
+      setDummy(newItems)
+      setDemand(items[featureId]?.properties?.demandWDDay*mode*powerFlow)
+      setEnergy(items[featureId]?.properties?.energyWDDay*energyFlow*powerFlow)
+      setCapacity(items[featureId]?.properties?.capacity)
+      setGeneration(items[featureId]?.properties?.capacity*4.7*energyFlow*weather)
+      setEStorage(items[featureId]?.properties?.energyStorage)
+     }, 5000)
+
+     setCanSave(true)
+    // setDummy(newItems)
+    // if(powerFlow!==1 || mode!==1 || energyFlow!==1 || weather!==1){
+    //   if(powerFlow===0.3){
+    //     setDemand(items[featureId]?.properties?.demandWDDay*powerFlow)
+    //   }else{
+    //     setDemand(items[featureId]?.properties?.demandWDDay*powerFlow*mode)
+    //   }
+    //   setEnergy(items[featureId]?.properties?.energyWDDay*energyFlow*powerFlow)
+    //   setCapacity(capacity)
+    //   setGeneration(capacity*4.7*energyFlow*weather)
+    // }else{
+    //   (console.log('false'))
+    // }
+    // setDemand(items[featureId]?.properties?.demandWDDay*powerFlow*mode)
+    // if(items){
+    //   let buffer = []
+    //   Object.values(items).map((object, index) => {
+    //     buffer = [...buffer, { ...object, properties: { id: index, demandWDDay: object.properties?.demandWDDay*powerFlow*mode, ...object.properties } }]
+    //   })
+    //   setItems([...buffer])
+    // }
+  },[energyFlow, powerFlow, mode, weather])
+
+
   const onEachFeature = (feature, layer) => {
+
     if (feature.properties?.description === 'T3') {
-      layer.setStyle({ className: 't3' })
+      layer.setStyle({ radius: 6, className: 't3' })
     }
     else if (feature.properties?.description === 'T1') {
-      layer.setStyle({ className: 't1' })
+      layer.setStyle({ radius: 6, className: 't1' })
+    } else if (feature.properties?.description === 'solar') {
+      layer.setStyle({ className: 'solarBuilding' })
     } else if (feature.geometry.type === 'Polygon') {
       layer.setStyle({ className: 'building' })
     } else {
-      layer.setStyle({ className: 'linePost' })
+      layer.setStyle({ radius: 5, className: 'linePost' })
     }
     if (feature.geometry.type === 'LineString') {
       layer.setStyle({ className: 'lineReverse' })
     }
+    if(feature.properties.name==='CKT7C-KWHR'){
+      layer.setStyle({ className: 'notMoving' })
+    }
+    if(feature.properties.name==='CKT 7C INEC'){
+      layer.setStyle({ radius: 10, className: 'bigCirc' })
+    }
+
 
     // feature.properties.id=
     // Bind a click event to each feature
@@ -119,7 +246,15 @@ function App() {
       // Update the selected feature when clicked
       // setSelectedFeatureId(feature.properties.name);
       setXValues(feature)
+      setFeatureId(feature?.properties?.id)
+      setBuilding(feature?.properties?.name)
+      // setCapacity(feature?.properties?.capacity)
+        // setEnergy(feature?.properties?.energyWDDay)
+      // setEStorage(feature?.properties?.energyStorage)
+      // setGeneration(feature?.properties?.generation)
     });
+
+    
 
     // Access the properties of each feature
     const { name } = feature.properties;
@@ -128,13 +263,17 @@ function App() {
     layer.bindPopup(`<b>${name}</b>`);
   };
 
+
   useEffect(() => {
     let newItems = []
     mmsu.features.map((object, index) => {
       newItems = [...newItems, { ...object, properties: { id: index, ...object.properties } }]
     })
     setItems(newItems)
+    setDummy(newItems)
+    
   }, [])
+  console.log(dummy)
   useEffect(() => {
     const geoJsonLayer = geoJsonLayerRef.current;
     if (geoJsonLayer) {
@@ -154,6 +293,45 @@ function App() {
     }
   }, [checked]);
 
+
+
+  const onResetClicked = () => {
+  
+    // let resetItems = []
+    // mmsu.features.map((object, index) => {
+    //   resetItems = [...resetItems, { ...object, properties: { id: index, ...object.properties } }]
+    //   // setDemand(object.properties?.demandWDDay)
+    //   // setCapacity(object.properties?.capacity)
+    //   // setEnergy(object.properties?.energyWDDay)
+    //   // setGeneration(object.properties?.generation)
+    //   // setEStorage(object.properties?.energyStorage)
+
+    // })
+    // setItems(resetItems)
+
+    setDemand(mmsu?.features[featureId]?.properties?.demandWDDay)
+    setCapacity(mmsu?.features[featureId]?.properties?.capacity)
+    setEnergy(mmsu?.features[featureId]?.properties?.energyWDDay)
+    setGeneration(mmsu?.features[featureId]?.properties?.generation)
+    setEStorage(mmsu?.features[featureId]?.properties?.energyStorage)
+    // console.log(featureId)
+    setCanSave(true)
+    setEnergyFlow(1)
+    setPowerFlow(1)
+    setWeather(1)
+    setMode(1)
+    // setDemand('')
+    // setEnergy('')
+    // setCapacity('')
+    // setGeneration('')
+    // setEStorage('')
+    // console.log(items)
+
+  }
+
+  // console.log(demand)
+
+
   const mapContainer = (
     <>
     <CssBaseline/>
@@ -165,35 +343,35 @@ function App() {
         doubleClickZoom={false}
       >
         <LayersControl position="topleft">
-          <LayersControl.BaseLayer checked name="OpenStreetMap">
+          <LayersControl.BaseLayer name="OpenStreetMap">
             <TileLayer
-              attribution='&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              // attribution='&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Esri ArcGIS World Imagery">
+          <LayersControl.BaseLayer checked name="Esri ArcGIS World Imagery">
             <TileLayer
-              attribution="Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"
+              // attribution="Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"
               className="basemap"
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="NASA Gibs Blue Marble">
-            <TileLayer
-              url="https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg"
-              attribution="&copy NASA Blue Marble, image service by OpenGeo"
-              maxNativeZoom={8}
             />
           </LayersControl.BaseLayer>
         </LayersControl>
         <GeoJSON
           ref={geoJsonLayerRef}
-          data={items}
+          data={[...items]}
           onEachFeature={onEachFeature}
           pointToLayer={pointToLayer}
           eventHandlers={{
             click: (e) => {
-              setActive(true)
+              setDrawer(true)
+              setDemand(dummy[e?.layer?.feature.properties.id]?.properties?.demandWDDay)
+              setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
+              setCapacity(dummy[e?.layer?.feature.properties.id]?.properties?.capacity)
+              setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.generation)
+              setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage)
+              // setDemand(dummy[featureId]?.properties?.demandWDDayyyy)
+
             },
           }}
         />
@@ -233,9 +411,9 @@ function App() {
                       value={energyFlow}
                       onChange={(e) => setEnergyFlow(e.target.value)}
                     >
-                      <MenuItem value={24}>Per Day</MenuItem>
-                      <MenuItem value={730.001}>Per Month</MenuItem>
-                      <MenuItem value={8760.00240024}>Per Year</MenuItem>
+                      <MenuItem value={1}>Per Day</MenuItem>
+                      <MenuItem value={30}>Per Month</MenuItem>
+                      <MenuItem value={365}>Per Year</MenuItem>
                     </Select>
                   </Grid>
                   <Grid item xs>
@@ -246,10 +424,10 @@ function App() {
                       size="small"
                       fullWidth
                       value={powerFlow}
-                      onChange={(e) => setPowerFlow(e.target.value)}
+                      onChange={(e)=>setPowerFlow(e.target.value)}
                     >
-                      <MenuItem value="Weekdays">Weekdays</MenuItem>
-                      <MenuItem value="Weekend">Weekend</MenuItem>
+                      <MenuItem value={1}>Weekdays</MenuItem>
+                      <MenuItem value={0.3}>Weekend</MenuItem>
                     </Select>
                   </Grid>
                   <Grid item xs>
@@ -262,13 +440,14 @@ function App() {
                       value={weather}
                       onChange={(e) => setWeather(e.target.value)}
                     >
-                      <MenuItem value={1}>Clear sky</MenuItem>
-                      <MenuItem value={2}>Partly cloudy</MenuItem>
-                      <MenuItem value={3}>Cloudy</MenuItem>
-                      <MenuItem value={4}>Dark sky</MenuItem>
-                      <MenuItem value={5}>Rainy</MenuItem>
+                      <MenuItem value={1}>Sunny</MenuItem>
+                      <MenuItem value={0.7}>Cloudy</MenuItem>
+                      <MenuItem value={0.5}>Mostly Cloudy</MenuItem>
+                      <MenuItem value={0.15}>Dark sky</MenuItem>
+                      <MenuItem value={0.07}>Rainy</MenuItem>
                     </Select>
                   </Grid>
+                  
                   <Grid item xs>
                     Mode
                   </Grid>
@@ -279,21 +458,149 @@ function App() {
                       value={mode}
                       onChange={(e) => setMode(e.target.value)}
                     >
-                      <MenuItem value="Day">Day</MenuItem>
-                      <MenuItem value="Night">Night</MenuItem>
+                      <MenuItem value={1}>Day</MenuItem>
+                      <MenuItem disabled={powerFlow===0.3} value={0.2}>Night</MenuItem>
                     </Select>
                   </Grid>
+
+                  
                 </Grid>
 
 
-                <Copyright sx={{ mt: 5 }} />
+                {/* <Copyright sx={{ mt: 5 }} /> */}
               </Box>
+              <ClipLoader
+                color='#000'
+                loading={loading}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+              <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 250 }} size="small" >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center" colSpan={3}>
+                        {building}
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+            <TableBody >
+                    
+              {/* <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>line direction</StyledTableCell>
+                <StyledTableCell align="left">
+                  <Switch checked={checked} onChange={(e)=>setChecked(e.target.checked)} />
+                </StyledTableCell>
+              </StyledTableRow> */}
+              <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Demand</StyledTableCell>
+                <StyledTableCell align="left">
+                  <TextField
+                    id="outlined-size-small"
+                    value={demand || ""}
+                    size="small"
+                    type="number"
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">kW</InputAdornment>,
+                    }}
+                    sx={{ width: '25ch' }}
+                    onChange={onDemandChanged}
+                  />
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Energy consumption</StyledTableCell>
+                <StyledTableCell align="left">
+                  <TextField
+                    id="outlined-size-small"
+                    value={energy || ""}
+                    size="small"
+                    type="number"
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">kW</InputAdornment>,
+                    }}
+                    sx={{ width: '25ch' }}
+                    onChange={onEnergyChanged}
+                  />
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Solar Capacity</StyledTableCell>
+                <StyledTableCell align="left">
+                  <TextField
+                    id="outlined-size-small"
+                    value={capacity || ""}
+                    size="small"
+                    type="number"
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">kWp</InputAdornment>,
+                    }}
+                    sx={{ width: '25ch' }}
+                    onChange={onCapacityChanged}
+                  />
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Generation</StyledTableCell>
+                <StyledTableCell align="left">
+                  <TextField
+                    id="outlined-size-small"
+                    value={generation || ""}
+                    size="small"
+                    type="number"
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">kWh</InputAdornment>,
+                    }}
+                    sx={{ width: '25ch' }}
+                    onChange={onGenerationChanged}
+                  />
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Energy Storage</StyledTableCell>
+                <StyledTableCell align="left">
+                  <TextField
+                    id="outlined-size-small"
+                    value={eStorage || ""}
+                    size="small"
+                    type="number"
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">kWh</InputAdornment>,
+                    }}
+                    sx={{ width: '25ch' }}
+                    onChange={onEStorageChanged}
+                  />
+                </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow>
+                  <TableCell align="center" colSpan={2}>
+                  <Button variant="contained" disabled={!canSave} onClick={()=>applyParam(featureId ,demand, energy, capacity, generation, energyFlow, powerFlow, mode, weather)}>Apply Changes</Button>
+                </TableCell>
+              </StyledTableRow>
+            </TableBody>
 
+          </Table>
+        </TableContainer>
+        <Button variant="text" onClick={onResetClicked}>reset</Button>
             </Box>
           </Drawer>
         </Control>
-        <SnackBar setActive={setActive} setChecked={setChecked} active={active} checked={checked} printx={printx} xValues={xValues} />
+        {/* <SnackBar
+          setActive={setActive}
+          setChecked={setChecked}
+          active={active}
+          checked={checked}
+          changeVal={changeVal}
+          xValues={xValues}
+          energyFlow={energyFlow}
+          powerFlow={powerFlow}
+          mode={mode}
+        /> */}
+
+        {/* <SnackBar setActive={setActive} setChecked={setChecked} active={active} powerFlow={powerFlow} xValues={xValues} /> */}
       </MapContainer>
+      <Legend/>
     </>
   )
   // let polygon
