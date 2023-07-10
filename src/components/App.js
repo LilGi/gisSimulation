@@ -133,6 +133,7 @@ function App() {
   buffer[featureId].properties.energyWDDay = energy
   buffer[featureId].properties.capacity = capacity
   buffer[featureId].properties.generation = generation
+  buffer[featureId].properties.energyStorage = eStorage
   setDummy(buffer)
 
   setCanSave(false)
@@ -163,56 +164,40 @@ function App() {
     setCanSave(true)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
     let newItems = []
-    Object.values(items).map((object, index) => {
-      newItems = [...newItems, { ...object, properties: { ...object.properties, 
-        id: index, 
-        demandWDDay: object?.properties?.demandWDDay*powerFlow*mode,
-        energyWDDay: object?.properties?.energyWDDay*energyFlow*powerFlow,
-        capacity: object?.properties?.capacity,
-        generation: object?.properties?.capacity*4.7*energyFlow*weather
-       
-      }
-      
-      }]
-    })
-    setLoading(true)
-    // setItems(newItems)
-    setTimeout(()=>{
-      setLoading(false)
-      setDummy(newItems)
-      setDemand(items[featureId]?.properties?.demandWDDay*mode*powerFlow)
-      setEnergy(items[featureId]?.properties?.energyWDDay*energyFlow*powerFlow)
-      setCapacity(items[featureId]?.properties?.capacity)
-      setGeneration(items[featureId]?.properties?.capacity*4.7*energyFlow*weather)
-      setEStorage(items[featureId]?.properties?.energyStorage)
-     }, 5000)
+    if(items!=='none'){
+      Object.values(items).map((object, index) => {
+        newItems = [...newItems, {
+          ...object, properties: {
+            ...object.properties,
+            id: index,
+            demandWDDay: object?.properties?.demandWDDay * powerFlow * mode,
+            energyWDDay: object?.properties?.energyWDDay * energyFlow * powerFlow,
+            capacity: object?.properties?.capacity,
+            generation: object?.properties?.capacity * 4.7 * energyFlow * weather
+  
+          }
+  
+        }]
+      })
+      setLoading(true)
 
-     setCanSave(true)
-    // setDummy(newItems)
-    // if(powerFlow!==1 || mode!==1 || energyFlow!==1 || weather!==1){
-    //   if(powerFlow===0.3){
-    //     setDemand(items[featureId]?.properties?.demandWDDay*powerFlow)
-    //   }else{
-    //     setDemand(items[featureId]?.properties?.demandWDDay*powerFlow*mode)
-    //   }
-    //   setEnergy(items[featureId]?.properties?.energyWDDay*energyFlow*powerFlow)
-    //   setCapacity(capacity)
-    //   setGeneration(capacity*4.7*energyFlow*weather)
-    // }else{
-    //   (console.log('false'))
-    // }
-    // setDemand(items[featureId]?.properties?.demandWDDay*powerFlow*mode)
-    // if(items){
-    //   let buffer = []
-    //   Object.values(items).map((object, index) => {
-    //     buffer = [...buffer, { ...object, properties: { id: index, demandWDDay: object.properties?.demandWDDay*powerFlow*mode, ...object.properties } }]
-    //   })
-    //   setItems([...buffer])
-    // }
-  },[energyFlow, powerFlow, mode, weather])
+      setTimeout(() => {
+        setLoading(false)
+        setDummy(newItems)
+        setDemand(items[featureId]?.properties?.demandWDDay * mode * powerFlow)
+        setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
+        setCapacity(items[featureId]?.properties?.capacity)
+        setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
+        setEStorage(items[featureId]?.properties?.energyStorage)
+      }, 5000)
+  
+      setCanSave(true)
+    }
+    
+  }, [energyFlow, powerFlow, mode, weather])
 
 
   const onEachFeature = (feature, layer) => {
@@ -243,15 +228,8 @@ function App() {
     // feature.properties.id=
     // Bind a click event to each feature
     layer.on('click', (e) => {
-      // Update the selected feature when clicked
-      // setSelectedFeatureId(feature.properties.name);
-      setXValues(feature)
       setFeatureId(feature?.properties?.id)
       setBuilding(feature?.properties?.name)
-      // setCapacity(feature?.properties?.capacity)
-        // setEnergy(feature?.properties?.energyWDDay)
-      // setEStorage(feature?.properties?.energyStorage)
-      // setGeneration(feature?.properties?.generation)
     });
 
     
@@ -270,10 +248,9 @@ function App() {
       newItems = [...newItems, { ...object, properties: { id: index, ...object.properties } }]
     })
     setItems(newItems)
-    setDummy(newItems)
-    
+    setDummy(newItems) 
   }, [])
-  console.log(dummy)
+
   useEffect(() => {
     const geoJsonLayer = geoJsonLayerRef.current;
     if (geoJsonLayer) {
@@ -586,19 +563,7 @@ function App() {
             </Box>
           </Drawer>
         </Control>
-        {/* <SnackBar
-          setActive={setActive}
-          setChecked={setChecked}
-          active={active}
-          checked={checked}
-          changeVal={changeVal}
-          xValues={xValues}
-          energyFlow={energyFlow}
-          powerFlow={powerFlow}
-          mode={mode}
-        /> */}
 
-        {/* <SnackBar setActive={setActive} setChecked={setChecked} active={active} powerFlow={powerFlow} xValues={xValues} /> */}
       </MapContainer>
       <Legend/>
     </>
