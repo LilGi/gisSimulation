@@ -535,15 +535,16 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5492032823708,
-                        18.05972310005557,
-                        0
-                    ],
-                    [
                         120.5493136500084,
                         18.05970197916429,
                         0
+                    ],
+                    [
+                        120.5492032823708,
+                        18.05972310005557,
+                        0
                     ]
+
                 ]
             },
             "properties": {
@@ -557,13 +558,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5493144737927,
-                        18.05969630465886,
-                        0
-                    ],
-                    [
-                        120.549554941287,
-                        18.06028856155453,
+                        120.5496839664576,
+                        18.06113233051694,
                         0
                     ],
                     [
@@ -572,8 +568,13 @@
                         0
                     ],
                     [
-                        120.5496839664576,
-                        18.06113233051694,
+                        120.549554941287,
+                        18.06028856155453,
+                        0
+                    ],
+                    [
+                        120.5493144737927,
+                        18.05969630465886,
                         0
                     ]
                 ]
@@ -1071,8 +1072,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5512930997039,
-                        18.05853314020329,
+                        120.5501324109486,
+                        18.05780131186828,
                         0
                     ],
                     [
@@ -1081,10 +1082,12 @@
                         0
                     ],
                     [
-                        120.5501324109486,
-                        18.05780131186828,
+                        120.5512930997039,
+                        18.05853314020329,
                         0
                     ]
+
+
                 ]
             },
             "properties": {
@@ -1286,13 +1289,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5532408821812,
-                        18.05817844009766,
+                        120.5531604343609,
+                        18.05773317164632,
                         0
                     ],
                     [
-                        120.5531604343609,
-                        18.05773317164632,
+                        120.5532408821812,
+                        18.05817844009766,
                         0
                     ]
                 ]
@@ -1345,13 +1348,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5529451417979,
-                        18.05734044408261,
+                        120.5531548155541,
+                        18.05772077597697,
                         0
                     ],
                     [
-                        120.5531548155541,
-                        18.05772077597697,
+                        120.5529451417979,
+                        18.05734044408261,
                         0
                     ]
                 ]
@@ -1389,19 +1392,19 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5531432483856,
-                        18.05686462439835,
+                        120.5536607443304,
+                        18.05759335130347,
                         0
                     ],
                     [
-                        120.5536607443304,
-                        18.05759335130347,
+                        120.5531432483856,
+                        18.05686462439835,
                         0
                     ]
                 ]
             },
             "properties": {
-                "name": "Untitled Path",
+                "name": "P18-OUT",
                 "tessellate": true
             }
         },
@@ -1489,8 +1492,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5540182829235,
-                        18.05860227411019,
+                        120.55385555659,
+                        18.05800393704998,
                         0
                     ],
                     [
@@ -1499,8 +1502,8 @@
                         0
                     ],
                     [
-                        120.55385555659,
-                        18.05800393704998,
+                        120.5540182829235,
+                        18.05860227411019,
                         0
                     ]
                 ]
@@ -1666,13 +1669,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5547990374966,
-                        18.05642236892565,
+                        120.5547509921508,
+                        18.05678322607032,
                         0
                     ],
                     [
-                        120.5547509921508,
-                        18.05678322607032,
+                        120.5547990374966,
+                        18.05642236892565,
                         0
                     ]
                 ]
@@ -1688,13 +1691,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5545075823554,
-                        18.0568160229396,
+                        120.5542985097091,
+                        18.0569022646843,
                         0
                     ],
                     [
-                        120.5542985097091,
-                        18.0569022646843,
+                        120.5545075823554,
+                        18.0568160229396,
                         0
                     ]
                 ]
@@ -1710,13 +1713,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5547495453962,
-                        18.05678678788556,
+                        120.55451032994,
+                        18.05681603256255,
                         0
                     ],
                     [
-                        120.55451032994,
-                        18.05681603256255,
+                        120.5547495453962,
+                        18.05678678788556,
                         0
                     ]
                 ]
@@ -1732,13 +1735,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5543097095573,
-                        18.05673450091177,
+                        120.554507549569,
+                        18.05681297692992,
                         0
                     ],
                     [
-                        120.554507549569,
-                        18.05681297692992,
+                        120.5543097095573,
+                        18.05673450091177,
                         0
                     ]
                 ]
@@ -1754,13 +1757,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5550480371917,
-                        18.05674871048931,
+                        120.5547543374219,
+                        18.05678648041939,
                         0
                     ],
                     [
-                        120.5547543374219,
-                        18.05678648041939,
+                        120.5550480371917,
+                        18.05674871048931,
                         0
                     ]
                 ]
@@ -1776,13 +1779,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5545555058707,
-                        18.05701004659862,
+                        120.5545103646143,
+                        18.05681908266803,
                         0
                     ],
                     [
-                        120.5545103646143,
-                        18.05681908266803,
+                        120.5545555058707,
+                        18.05701004659862,
                         0
                     ]
                 ]
@@ -1798,13 +1801,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5547875852214,
-                        18.05695972203282,
+                        120.554754518798,
+                        18.0567885922408,
                         0
                     ],
                     [
-                        120.554754518798,
-                        18.0567885922408,
+                        120.5547875852214,
+                        18.05695972203282,
                         0
                     ]
                 ]
@@ -1978,13 +1981,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5562634380769,
-                        18.05784442991232,
+                        120.5564841169811,
+                        18.05773795318039,
                         0
                     ],
                     [
-                        120.5564841169811,
-                        18.05773795318039,
+                        120.5562634380769,
+                        18.05784442991232,
                         0
                     ]
                 ]
@@ -2056,13 +2059,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5566061345952,
-                        18.05930842455471,
+                        120.5569906944616,
+                        18.05878385636776,
                         0
                     ],
                     [
-                        120.5569906944616,
-                        18.05878385636776,
+                        120.5566061345952,
+                        18.05930842455471,
                         0
                     ]
                 ]
@@ -2078,13 +2081,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5566331777786,
-                        18.05939668935444,
+                        120.5566051429176,
+                        18.05930473978673,
                         0
                     ],
                     [
-                        120.5566051429176,
-                        18.05930473978673,
+                        120.5566331777786,
+                        18.05939668935444,
                         0
                     ]
                 ]
@@ -2100,13 +2103,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5563231698697,
-                        18.05922566885183,
+                        120.5566067398947,
+                        18.05930660738053,
                         0
                     ],
                     [
-                        120.5566067398947,
-                        18.05930660738053,
+                        120.5563231698697,
+                        18.05922566885183,
                         0
                     ]
                 ]
@@ -2172,13 +2175,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5579407240022,
-                        18.0588920377253,
+                        120.5576071194686,
+                        18.05908639977913,
                         0
                     ],
                     [
-                        120.5576071194686,
-                        18.05908639977913,
+                        120.5579407240022,
+                        18.0588920377253,
                         0
                     ]
                 ]
@@ -2280,13 +2283,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5577835061208,
-                        18.05969172947069,
+                        120.5576867170023,
+                        18.05950959695747,
                         0
                     ],
                     [
-                        120.5576867170023,
-                        18.05950959695747,
+                        120.5577835061208,
+                        18.05969172947069,
                         0
                     ]
                 ]
@@ -2302,13 +2305,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5579566124083,
-                        18.05955844253509,
+                        120.5577835588141,
+                        18.05968961622267,
                         0
                     ],
                     [
-                        120.5577835588141,
-                        18.05968961622267,
+                        120.5579566124083,
+                        18.05955844253509,
                         0
                     ]
                 ]
@@ -2324,13 +2327,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5458871878489,
-                        18.06544420066903,
+                        120.5458043630722,
+                        18.06530908878144,
                         0
                     ],
                     [
-                        120.5458043630722,
-                        18.06530908878144,
+                        120.5458871878489,
+                        18.06544420066903,
                         0
                     ]
                 ]
@@ -2697,13 +2700,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5496860401674,
-                        18.06112845444638,
+                        120.5500506130899,
+                        18.06102996015249,
                         0
                     ],
                     [
-                        120.5500506130899,
-                        18.06102996015249,
+                        120.5496860401674,
+                        18.06112845444638,
                         0
                     ]
                 ]
@@ -2799,14 +2802,15 @@
                 "energyWDNight": 80,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 106.4,
+                "demandWDDay": 328.8,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 400,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 200
+                "energyStorage": 200,
+                "res": 1240
             }
         },
         {
@@ -2857,7 +2861,8 @@
                 "capacity": 360,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 1692
             }
         },
         {
@@ -2901,14 +2906,15 @@
                 "energyWDNight": 80,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 62.4,
+                "demandWDDay": 160,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 500
             }
         },
         {
@@ -3042,14 +3048,15 @@
                 "energyWDNight": 30,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 280,
+                "demandWDDay": 150,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 680
             }
         },
         {
@@ -3348,7 +3355,8 @@
                 "capacity": 100,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": -922
             }
         },
         {
@@ -3568,20 +3576,19 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-LIBRARY/CFL",
-                "description": "solar",
+                "name": "MMSU-LIBRARY",
                 "energyWDDay": 480,
                 "energyWDNight": 40,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 84.8,
+                "demandWDDay": 160,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 400,
+                "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 200
+                "res": 0
             }
         },
         {
@@ -4010,7 +4017,7 @@
             },
             "properties": {
                 "name": "MMSU-DORMITORY",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -4061,7 +4068,7 @@
             },
             "properties": {
                 "name": "MMSU-DORMITORY",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -4220,7 +4227,7 @@
             },
             "properties": {
                 "name": "MMSU-DORMITORY",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -4271,7 +4278,7 @@
             },
             "properties": {
                 "name": "MMSU-DORMITORY",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -4542,14 +4549,15 @@
                 "energyWDNight": 16,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 892
             }
         },
         {
@@ -4588,7 +4596,7 @@
             },
             "properties": {
                 "name": "MMSU-MOTORPOOL",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -4756,12 +4764,12 @@
             },
             "properties": {
                 "name": "MMSU-CAFSD",
-                "description": null,
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "description": "mmsu-building",
+                "energyWDDay": 259.2,
+                "energyWDNight": 43.2,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 96,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5041,12 +5049,12 @@
             },
             "properties": {
                 "name": "MMSU-FPIC",
-                "description": null,
-                "energyWDDay": 50,
-                "energyWDNight": 0,
+                "description": "mmsu-building",
+                "energyWDDay": 120,
+                "energyWDNight": 40,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 38.8,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5092,12 +5100,12 @@
             },
             "properties": {
                 "name": "MMSU-SCIENCE-AND-TECHNOLOGY",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 120,
                 "energyWDNight": 40,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 38.8,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5143,12 +5151,12 @@
             },
             "properties": {
                 "name": "MMSU-COVEREDCOURT",
-                "description": null,
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "description": "mmsu-building",
+                "energyWDDay": 176,
+                "energyWDNight": 35.2,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 92,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5206,7 +5214,8 @@
                 "capacity": 360,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 1400
+                "energyStorage": 1400,
+                "res": 1692
             }
         },
         {
@@ -5245,7 +5254,7 @@
             },
             "properties": {
                 "name": "MMSU-FITNESSCENTER",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -5335,12 +5344,12 @@
             },
             "properties": {
                 "name": "MMSU-INFIRMARY",
-                "description": null,
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "description": "mmsu-building",
+                "energyWDDay": 328,
+                "energyWDNight": 65.6,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 92,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5386,12 +5395,12 @@
             },
             "properties": {
                 "name": "MMSU-COL",
-                "description": null,
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "description": "mmsu-building",
+                "energyWDDay": 96,
+                "energyWDNight": 19.2,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 13.24,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -5574,7 +5583,7 @@
             },
             "properties": {
                 "name": "MMSU-HIGHSCHOOL",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -5723,7 +5732,7 @@
             },
             "properties": {
                 "name": "MMSU-CAFETERIA",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -5826,7 +5835,8 @@
                 "capacity": 300,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 1186
             }
         },
         {
@@ -6060,7 +6070,7 @@
             },
             "properties": {
                 "name": "MMSU-SCIENCE-HIGH-SCHOOL",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -6111,7 +6121,7 @@
             },
             "properties": {
                 "name": "MMSU-OPENCOURT",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -6445,20 +6455,21 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-CHS/COM",
+                "name": "MMSU-COM",
                 "description": "solar",
                 "energyWDDay": 330,
                 "energyWDNight": 50,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 380,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": 1456
             }
         },
         {
@@ -6576,7 +6587,7 @@
             },
             "properties": {
                 "name": "MMSU-MANSION",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 52,
                 "energyWDNight": 44,
                 "energyWEDay": 0,
@@ -6652,14 +6663,15 @@
                 "energyWDNight": 72,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 183.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
-                "capacity": 0,
+                "capacity": 400,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 200,
+                "res": 1148
             }
         },
         {
@@ -6767,12 +6779,12 @@
             },
             "properties": {
                 "name": "MMSU-CHS",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 68,
                 "energyWDNight": 36,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 40.04,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -6858,7 +6870,7 @@
             },
             "properties": {
                 "name": "MMSU-UTC",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -6968,7 +6980,7 @@
             },
             "properties": {
                 "name": "MMSU-POOL",
-                "description": null,
+                "description": "mmsu-building",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
                 "energyWEDay": 0,
@@ -7361,14 +7373,15 @@
                 "energyWDNight": 70,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 35,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 100,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 200
+                "energyStorage": 200,
+                "res": 358
             }
         },
         {
@@ -7498,13 +7511,13 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5442094770889,
-                        18.05929703893382,
+                        120.5442435205081,
+                        18.05944082882681,
                         0
                     ],
                     [
-                        120.5442435205081,
-                        18.05944082882681,
+                        120.5442094770889,
+                        18.05929703893382,
                         0
                     ]
                 ]
@@ -7542,18 +7555,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5467921134118,
-                        18.06484066895837,
-                        0
-                    ],
-                    [
-                        120.5475032058147,
-                        18.06509176257499,
-                        0
-                    ],
-                    [
-                        120.5480555857257,
-                        18.06420574666518,
+                        120.5499104346635,
+                        18.06262799705251,
                         0
                     ],
                     [
@@ -7562,8 +7565,18 @@
                         0
                     ],
                     [
-                        120.5499104346635,
-                        18.06262799705251,
+                        120.5480555857257,
+                        18.06420574666518,
+                        0
+                    ],
+                    [
+                        120.5475032058147,
+                        18.06509176257499,
+                        0
+                    ],
+                    [
+                        120.5467921134118,
+                        18.06484066895837,
                         0
                     ]
                 ]
@@ -7579,13 +7592,8 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5458100614979,
-                        18.06530614554317,
-                        0
-                    ],
-                    [
-                        120.5460778781561,
-                        18.06490184880558,
+                        120.5467944453955,
+                        18.06484326013691,
                         0
                     ],
                     [
@@ -7594,8 +7602,13 @@
                         0
                     ],
                     [
-                        120.5467944453955,
-                        18.06484326013691,
+                        120.5460778781561,
+                        18.06490184880558,
+                        0
+                    ],
+                    [
+                        120.5458100614979,
+                        18.06530614554317,
                         0
                     ]
                 ]

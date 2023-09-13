@@ -17,14 +17,14 @@
 
 .lineReverse {
   stroke-width: 2px;
-  stroke: lightgreen;
+  stroke: #fffe33;
   stroke-dasharray: 5 10 15;
   stroke-dashoffset: 400;
   animation: dash 15s linear reverse infinite;
 }
 .lineForward {
   stroke-width: 2px;
-  stroke: lightgreen;
+  stroke: #fffe33;
   stroke-dasharray: 15 10 5;
   stroke-dashoffset: 400;
   animation: dash 15s linear forwards infinite;
@@ -38,10 +38,12 @@
 
 }
 @keyframes dash {
+  
   to {
     stroke-dashoffset: 0;
   }
 }
+
 .linePost {
   fill-opacity: 0.65;
   fill: #d1d1d1;
@@ -58,13 +60,31 @@
   stroke: #000000;
   stroke-opacity: 1;
 }
-.solarBuilding {
+.solarBuildingGn {
   fill-opacity: 0.6;
   fill: #fffe33;
-	stroke-width: 1px;
+	stroke-width: 2px;
 	opacity: 1;
-  stroke: #000000;
+  stroke: #00FF00;
   stroke-opacity: 1;
+  /* box-shadow: 0px 0px 20px 10px #48abe0;
+  animation: shadows 1.5s infinite; */
+  filter: drop-shadow(0px 5px 10px rgb(0, 255, 0));
+  animation: greenshadow 1.5s infinite; 
+}
+.solarBuildingRd {
+  fill-opacity: 0.6;
+  fill: #fffe33;
+	stroke-width: 2px;
+	opacity: 1;
+  stroke: #ff0000;
+  stroke-opacity: 1;
+  /* box-shadow: 0px 0px 20px 10px #48abe0;
+  animation: shadows 1.5s infinite; */
+
+
+  filter: drop-shadow(0px 5px 10px rgb(255, 0, 0));
+  animation: redshadow 1.5s infinite; 
 }
 .t3 {
   fill-opacity: 0.65;
@@ -100,6 +120,111 @@
     stroke-dashoffset: 0;
   }
 }
+
+@keyframes redshadow {
+  0% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.1));
+    stroke-opacity: 0.1;
+  }
+
+  10% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.2));
+    stroke-opacity: 0.2;
+  }
+
+  20% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.3));
+    stroke-opacity: 0.3;
+  }
+
+  30% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.4));
+    stroke-opacity: 0.4;
+  }
+
+  40% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.5));
+    stroke-opacity: 0.5;
+  }
+  50% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.6));
+    stroke-opacity: 0.6;
+  }
+  60% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.7));
+    stroke-opacity: 0.7;
+  }
+  70% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.8));
+    stroke-opacity: 0.8;
+  }
+  80% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.9));
+    stroke-opacity: 0.9;
+  }
+  90% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 0.95));
+    stroke-opacity: 0.95;
+  }
+  100% {
+    filter: drop-shadow(0px 5px 10px rgb(255, 0, 0, 1));
+    stroke-opacity: 1;
+  }
+ 
+}
+
+@keyframes greenshadow {
+  0% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.1));
+    stroke-opacity: 0.1;
+  }
+
+  10% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.2));
+    stroke-opacity: 0.2;
+  }
+
+  20% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.3));
+    stroke-opacity: 0.3;
+  }
+
+  30% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.4));
+    stroke-opacity: 0.4;
+  }
+
+  40% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.5));
+    stroke-opacity: 0.5;
+  }
+  50% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.6));
+    stroke-opacity: 0.6;
+  }
+  60% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.7));
+    stroke-opacity: 0.7;
+  }
+  70% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.8));
+    stroke-opacity: 0.8;
+  }
+  80% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.9));
+    stroke-opacity: 0.9;
+  }
+  90% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 0.95));
+    stroke-opacity: 0.95;
+  }
+  100% {
+    filter: drop-shadow(0px 5px 10px rgb(0, 255, 0, 1));
+    stroke-opacity: 1;
+  }
+ 
+}
+
 
 
 
