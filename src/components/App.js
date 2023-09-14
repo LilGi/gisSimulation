@@ -5,12 +5,12 @@ import L from 'leaflet'; // Import the Leaflet library
 import { SnackBar } from './Snackbar'
 import { Legend } from './Legend'
 import mmsu from '../MMSUPRE1.json'
-import { Box, Button, CssBaseline, Drawer, Grid, IconButton, InputAdornment, Link, MenuItem, Paper, Select, Switch, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, CssBaseline, Drawer, Grid, IconButton, InputAdornment, Link, MenuItem, Paper, Select, Switch, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography, styled, ListItemText, ListItemIcon } from '@mui/material';
 import Control from 'react-leaflet-custom-control'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import {
 
-  Menu as MenuIcon, TroubleshootSharp,
+  Menu as MenuIcon,
 
 }
   from '@mui/icons-material'
@@ -88,18 +88,21 @@ function App() {
   const [powerFlow, setPowerFlow] = useState(1)
   const [weather, setWeather] = useState(1)
   const [mode, setMode] = useState(1)
+  const [oldMode, setOldMode] = useState(mode)
   const [xValues, setXValues] = useState(null)
 
   const [featureId, setFeatureId] = useState('')
   const [building, setBuilding] = useState('')
-  const [demand, setDemand] = useState('')
-  const [energy, setEnergy] = useState('')
-  const [capacity, setCapacity] = useState('')
-  const [generation, setGeneration] = useState('')
-  const [eStorage, setEStorage] = useState('')
+  const [demand, setDemand] = useState(0)
+  const [energy, setEnergy] = useState(0)
+  const [capacity, setCapacity] = useState(0)
+  const [generation, setGeneration] = useState(0)
+  const [eStorage, setEStorage] = useState(0)
   const [res, setRes] = useState(0)
   const [canSave, setCanSave] = useState(false)
   const [loading, setLoading] = useState(false)
+
+
 
   const [dummy, setDummy] = useState("none")
   const [items, setItems] = useState("none")
@@ -165,54 +168,67 @@ function App() {
     setEStorage(parseFloat(e.target.value))
     setCanSave(true)
   }
+  const onResChanged = (e) => {
+    setRes(parseFloat(e.target.value))
+    setCanSave(true)
+  }
 
+  console.log(oldMode, mode)
   useEffect(() => {
 
-    let newItems = []
-    if(items!=='none'){
-      Object.values(items).map((object, index) => {
-        newItems = [...newItems, {
-          ...object, properties: {
-            ...object.properties,
-            id: index,
-            demandWDDay: object?.properties?.demandWDDay * powerFlow * mode,
-            energyWDDay: object?.properties?.energyWDDay * energyFlow * powerFlow,
-            capacity: object?.properties?.capacity,
-            generation: object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow,
-            res: mode==0.2 ?  (object?.properties?.energyStorage*0.8 * energyFlow * powerFlow) - (object?.properties?.energyWDNight * energyFlow * powerFlow) : 
-            (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (object?.properties?.energyWDDay * energyFlow * powerFlow) ? 
-            (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (object?.properties?.energyStorage*0.8)) - (object?.properties?.energyWDDay * energyFlow * powerFlow) : 
-            (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (object?.properties?.energyWDDay * energyFlow * powerFlow)
+      let newItems = []
+      if(items!=='none'){
+        Object.values(items).map((object, index) => {
+          newItems = [...newItems, {
+            ...object, properties: {
+              ...object.properties,
+              id: index,
+              demandWDDay: oldMode != mode ? object?.properties?.demandWDDay * powerFlow * mode : object?.properties?.demandWDDay * powerFlow,
+              energyWDDay: object?.properties?.energyWDDay * energyFlow * powerFlow,
+              capacity: object?.properties?.capacity,
+              generation: object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow,
+              res: mode==0.2 ?  (object?.properties?.energyStorage * 0.8 * energyFlow * powerFlow) - (object?.properties?.energyWDNight * energyFlow * powerFlow) : 
+              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (object?.properties?.energyWDDay * energyFlow * powerFlow) ? 
+              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (object?.properties?.energyStorage*0.8)) - (object?.properties?.energyWDDay * energyFlow * powerFlow) : 
+              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (object?.properties?.energyWDDay * energyFlow * powerFlow)
+            }
+          }]
+        })
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+          setDummy(newItems)
+          setDemand(oldMode != mode ? items[featureId]?.properties?.demandWDDay * powerFlow * mode : items[featureId]?.properties?.demandWDDay * powerFlow)
+          setCapacity(items[featureId]?.properties?.capacity)
+          if(mode===0.2){
+            setGeneration(0)
+            setEnergy(items[featureId]?.properties?.energyWDNight * energyFlow * powerFlow)
+            setRes( (items[featureId]?.properties?.energyStorage * 0.8 * energyFlow * powerFlow) - (items[featureId]?.properties?.energyWDNight* energyFlow * powerFlow))
+            console.log("night")
+          }else if((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)){
+            setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
+            setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
+            setRes((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (items[featureId]?.properties?.energyStorage*0.8)) - (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow))
+            console.log("gen < demand")
           }
-        }]
-      })
-      setLoading(true)
-      setTimeout(() => {
-        setLoading(false)
-        setDummy(newItems)
-        setDemand(items[featureId]?.properties?.demandWDDay * mode * powerFlow)
-        setCapacity(items[featureId]?.properties?.capacity)
-        if(mode===0.2){
-          setGeneration(0)
-          setEnergy(items[featureId]?.properties?.energyWDNight * energyFlow * powerFlow)
-          setRes( (items[featureId]?.properties?.energyStorage * 0.8 * energyFlow * powerFlow) - (items[featureId]?.properties?.energyWDNight* energyFlow * powerFlow))
-        }else if((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)){
-          setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
-          setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
-          setRes((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (items[featureId]?.properties?.energyStorage*0.8)) - (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow))
-        }
-        else{
-          setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
-          setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
-          setRes((items[featureId]?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (items[featureId]?.energyWDDay * energyFlow * powerFlow))
-        }
-        setEStorage(items[featureId]?.properties?.energyStorage)
-      }, 2000)
-  
-      setCanSave(true)
-    }
+          else{
+            setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
+            setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
+            setRes((items[featureId]?.properties.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (items[featureId]?.properties.energyWDDay * energyFlow * powerFlow))
+            console.log("kababaan")
+          }
+          setEStorage(items[featureId]?.properties?.energyStorage)
+        }, 3000)
+        setOldMode(mode)
+        setCanSave(true)
+      }
+
     
   }, [energyFlow, powerFlow, mode, weather])
+
+
+
+
 
 
   const onEachFeature = (feature, layer) => {
@@ -224,7 +240,6 @@ function App() {
     else if (feature.properties?.description === 'T1') {
       layer.setStyle({ radius: 6, className: 't1' })
     } else if (feature.properties?.description === 'solar' && feature.properties?.res >= 0) {
-      
       layer.setStyle({ className: 'solarBuildingGn' })
     } else if (feature.properties?.description === 'solar' && feature.properties?.res < 0) {
       layer.setStyle({ className: 'solarBuildingRd' })
@@ -271,32 +286,32 @@ function App() {
     setDummy(newItems) 
   }, [])
 
-  useEffect(() => {
-    const geoJsonLayer = geoJsonLayerRef.current;
-    if (geoJsonLayer) {
-      geoJsonLayer.eachLayer((layer) => {
-        // const isSelected = layer.feature.geometry.type === 'LineString'
-        const isSolarBldg = layer.feature.properties?.description === 'solar'
-        // const isSelected = layer.feature.properties.Name === selectedFeatureId;
-        console.log(layer.feature.properties?.id, layer.feature.properties?.res )
-        const element = layer.getElement();
-        if(isSolarBldg && layer.feature.properties?.res<0){
-          L.DomUtil.addClass(element, 'solarBuildingRd');
-        }if(isSolarBldg && layer.feature.properties?.res>=0){
-          L.DomUtil.removeClass(element, 'solarBuildingRd');
-          L.DomUtil.addClass(element, 'solarBuildingRd');
-        }
+  // useEffect(() => {
+  //   const geoJsonLayer = geoJsonLayerRef.current;
+  //   if (geoJsonLayer) {
+  //     geoJsonLayer.eachLayer((layer) => {
+  //       // const isSelected = layer.feature.geometry.type === 'LineString'
+  //       const isSolarBldg = layer.feature.properties?.description === 'solar'
+  //       // const isSelected = layer.feature.properties.Name === selectedFeatureId;
+  //       console.log(layer.feature.properties?.id, layer.feature.properties?.res )
+  //       const element = layer.getElement();
+  //       if(isSolarBldg && layer.feature.properties?.res<0){
+  //         L.DomUtil.addClass(element, 'solarBuildingRd');
+  //       }if(isSolarBldg && layer.feature.properties?.res>=0){
+  //         L.DomUtil.removeClass(element, 'solarBuildingRd');
+  //         L.DomUtil.addClass(element, 'solarBuildingRd');
+  //       }
 
-        // console.log(isSelected && checked)
-        // if (isSelected && checked) {
-        //   L.DomUtil.addClass(element, 'lineForward');
-        // } else {
-        //   L.DomUtil.removeClass(element, 'lineForward');
-        // }
-      });
-    }
+  //       // console.log(isSelected && checked)
+  //       // if (isSelected && checked) {
+  //       //   L.DomUtil.addClass(element, 'lineForward');
+  //       // } else {
+  //       //   L.DomUtil.removeClass(element, 'lineForward');
+  //       // }
+  //     });
+  //   }
     
-  }, [checked, items])
+  // }, [checked])
 
   // console.log(items[159])
   // console.log((generation+(eStorage*0.8))-energy)
@@ -318,18 +333,26 @@ function App() {
     setCapacity(mmsu?.features[featureId]?.properties?.capacity)
     setEnergy(mmsu?.features[featureId]?.properties?.energyWDDay)
     setEStorage(mmsu?.features[featureId]?.properties?.energyStorage)
+    setRes(mmsu?.features[featureId]?.properties?.res)
     // console.log(featureId)
     setCanSave(true)
     setEnergyFlow(1)
     setPowerFlow(1)
     setWeather(1)
     setMode(1)
+    setItems("none")
     // setDemand('')
     // setEnergy('')
     // setCapacity('')
     // setGeneration('')
     // setEStorage('')
     // console.log(items)
+    let newItems = []
+    mmsu.features.map((object, index) => {
+      newItems = [...newItems, { ...object, properties: { id: index, ...object.properties } }]
+    })
+    setItems(newItems)
+    setDummy(newItems) 
 
   }
 
@@ -375,15 +398,25 @@ function App() {
               setDrawer(true)
               setDemand(dummy[e?.layer?.feature.properties.id]?.properties?.demandWDDay)
               setCapacity(dummy[e?.layer?.feature.properties.id]?.properties?.capacity)
-              if(mode==0.2){
-                setGeneration(0)
-                setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDNight)
-                setRes( (dummy[e?.layer?.feature.properties?.id].properties.energyStorage*0.8)-dummy[e?.layer?.feature.properties.id]?.properties?.energyWDNight )
-              }else{
-                setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
-                setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather)
-                setRes((dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather + (dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage*0.8)) - dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
+              setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.generation)
+              setRes(dummy[e?.layer?.feature.properties.id]?.properties?.res)
+
+              if(mode===0.2){
+                setEnergy(e?.layer?.feature.properties?.energyWDNight )
               }
+              else{
+                setEnergy(e?.layer?.feature.properties?.energyWDDay)
+              }
+
+              // if(mode==0.2){
+              //   setGeneration(0)
+              //   setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDNight)
+              //   setRes( (dummy[e?.layer?.feature.properties?.id].properties.energyStorage*0.8)-dummy[e?.layer?.feature.properties.id]?.properties?.energyWDNight )
+              // }else{
+              //   setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
+              //   setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather)
+              //   setRes((dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather + (dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage*0.8)) - dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
+              // }
               setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage)
               // setDemand(dummy[featureId]?.properties?.demandWDDayyyy)
 
@@ -427,9 +460,9 @@ function App() {
                       value={energyFlow}
                       onChange={(e) => setEnergyFlow(e.target.value)}
                     >
-                      <MenuItem value={1}>Per Day</MenuItem>
-                      <MenuItem value={30}>Per Month</MenuItem>
-                      <MenuItem value={365}>Per Year</MenuItem>
+                      <MenuItem value={1}>Daily</MenuItem>
+                      <MenuItem value={30}>Monthly</MenuItem>
+                      <MenuItem value={365}>Yearly</MenuItem>
                     </Select>
                   </Grid>
                   <Grid item xs>
@@ -448,19 +481,47 @@ function App() {
                   </Grid>
                   <Grid item xs>
                     Weather Condition
+             
                   </Grid>
                   <Grid item xs={8}>
                     <Select
-                      size="small"
+            size="small"
                       fullWidth
                       value={weather}
                       onChange={(e) => setWeather(e.target.value)}
+                      disabled={mode===0.2}
                     >
-                      <MenuItem value={1}>Clear Sky</MenuItem>
-                      <MenuItem value={0.7}>Cloudy</MenuItem>
-                      <MenuItem value={0.5}>Mostly Cloudy</MenuItem>
-                      <MenuItem value={0.15}>Dark sky</MenuItem>
-                      <MenuItem value={0.07}>Rainy</MenuItem>
+                      <MenuItem value={1}         >
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/sunny.svg' height={"25px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Clear Sky</div>
+                        </div>
+                      </MenuItem>
+                      <MenuItem value={0.7}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/cloudy.svg' height={"25px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Cloudy</div>
+                        </div>
+                      </MenuItem>
+                      <MenuItem value={0.5}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/mostlycloudy.svg' height={"25px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Mostly Cloudy</div>
+                        </div>
+                      </MenuItem>
+
+                      <MenuItem value={0.15}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/darksky.svg' height={"25px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Dark Sky</div>
+                        </div>
+                      </MenuItem>
+                      <MenuItem value={0.07}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/rainy.svg' height={"30px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Rainy</div>
+                        </div>
+                      </MenuItem>
                     </Select>
                   </Grid>
                   
@@ -472,10 +533,24 @@ function App() {
                       size="small"
                       fullWidth
                       value={mode}
-                      onChange={(e) => setMode(e.target.value)}
+                      onChange={(e) => {
+                        setMode(e.target.value)
+                        setOldMode(mode)
+                      }
+                      }
                     >
-                      <MenuItem value={1}>Day</MenuItem>
-                      <MenuItem disabled={powerFlow===0.3} value={0.2}>Night</MenuItem>
+                      <MenuItem value={1}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/sunny.svg' height={"25px"} style={{ paddingRight: "5px" }}></img>
+                          <div>Day</div>
+                        </div>
+                      </MenuItem>
+                      <MenuItem disabled={powerFlow===0.3} value={0.2}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <img src='/night.svg' height={"20px"} style={{ paddingRight: "10px" }}></img>
+                          <div>Night</div>
+                        </div>
+                      </MenuItem>
                     </Select>
                   </Grid>
 
@@ -514,7 +589,7 @@ function App() {
                 <StyledTableCell align="left">
                   <TextField
                     id="outlined-size-small"
-                    value={demand || ""}
+                    value={demand.toFixed(2) || ""}
                     size="small"
                     type="number"
                     InputProps={{
@@ -601,13 +676,13 @@ function App() {
                       endAdornment: <InputAdornment position="end">kWh</InputAdornment>,
                     }}
                     sx={{ width: '25ch' }}
-                    onChange={onEStorageChanged}
+                    onChange={onResChanged}
                   />
                 </StyledTableCell>
               </StyledTableRow>
               <StyledTableRow>
                   <TableCell align="center" colSpan={2}>
-                  <Button variant="contained" disabled={!canSave} onClick={()=>applyParam(featureId ,demand, energy, capacity, generation, energyFlow, powerFlow, mode, weather)}>Apply Changes</Button>
+                  <Button variant="contained" disabled={!canSave} onClick={()=>applyParam(featureId ,demand, energy, capacity, generation, energyFlow, powerFlow, mode, weather, res)}>Apply Changes</Button>
                 </TableCell>
               </StyledTableRow>
             </TableBody>
