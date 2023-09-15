@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, LayersControl, GeoJSON, LayerGroup } from 'react-leaflet'
+import { MapContainer, TileLayer, LayersControl, GeoJSON, LayerGroup, Popup } from 'react-leaflet'
 import luzon from '../SAMPLEE.json'
 import L from 'leaflet'; // Import the Leaflet library
 import { SnackBar } from './Snackbar'
@@ -102,8 +102,6 @@ function App() {
   const [canSave, setCanSave] = useState(false)
   const [loading, setLoading] = useState(false)
 
-
-
   const [dummy, setDummy] = useState("none")
   const [items, setItems] = useState("none")
   const [active, setActive] = useState(false)
@@ -173,7 +171,6 @@ function App() {
     setCanSave(true)
   }
 
-  console.log(oldMode, mode)
   useEffect(() => {
 
       let newItems = []
@@ -229,8 +226,6 @@ function App() {
 
 
 
-
-
   const onEachFeature = (feature, layer) => {
     
     if (feature.properties?.description === 'T3') {
@@ -251,11 +246,16 @@ function App() {
     if (feature.geometry.type === 'LineString') {
       layer.setStyle({ className: 'lineForward' })
     }
+
     if(feature.properties.name==='CKT7C-KWHR'){
       layer.setStyle({ className: 'notMoving' })
     }
     if(feature.properties.name==='CKT 7C INEC'){
       layer.setStyle({ radius: 10, className: 'bigCirc' })
+    }
+    if(feature.properties.name==='KWHR METER'){
+      layer.setStyle({ radius: 10, className: 'bigCirc' })
+   
     }
 
 
@@ -264,6 +264,7 @@ function App() {
     layer.on('click', (e) => {
       setFeatureId(feature?.properties?.id)
       setBuilding(feature?.properties?.name)
+   
   
     });
 
@@ -273,7 +274,7 @@ function App() {
     const { name } = feature.properties;
 
     // Bind a popup to each feature
-    layer.bindPopup(`<b>${name}</b>`);
+    layer.bindPopup(`<b>${name}</b>`)
   };
 
 
@@ -291,18 +292,18 @@ function App() {
   //   if (geoJsonLayer) {
   //     geoJsonLayer.eachLayer((layer) => {
   //       // const isSelected = layer.feature.geometry.type === 'LineString'
-  //       const isSolarBldg = layer.feature.properties?.description === 'solar'
+  //       const isSolarBldg = layer.feature.geometry.type === 'Polygon'
   //       // const isSelected = layer.feature.properties.Name === selectedFeatureId;
-  //       console.log(layer.feature.properties?.id, layer.feature.properties?.res )
+
   //       const element = layer.getElement();
   //       if(isSolarBldg && layer.feature.properties?.res<0){
   //         L.DomUtil.addClass(element, 'solarBuildingRd');
   //       }if(isSolarBldg && layer.feature.properties?.res>=0){
   //         L.DomUtil.removeClass(element, 'solarBuildingRd');
-  //         L.DomUtil.addClass(element, 'solarBuildingRd');
+         
   //       }
 
-  //       // console.log(isSelected && checked)
+  //       console.log(layer.feature.properties?.res)
   //       // if (isSelected && checked) {
   //       //   L.DomUtil.addClass(element, 'lineForward');
   //       // } else {
@@ -311,7 +312,7 @@ function App() {
   //     });
   //   }
     
-  // }, [checked])
+  // }, [checked, items])
 
   // console.log(items[159])
   // console.log((generation+(eStorage*0.8))-energy)
@@ -364,8 +365,8 @@ function App() {
     <CssBaseline/>
       <MapContainer
         style={{ height: "100vh" }}
-        center={[18.0582, 120.5559]}
-        zoom={13}
+        center={[18.0602427983358, 120.5481625562414]}
+        zoom={16}
         scrollWheelZoom={true}
         doubleClickZoom={false}
       >
@@ -395,12 +396,13 @@ function App() {
           pointToLayer={pointToLayer}
           eventHandlers={{
             click: (e) => {
-              setDrawer(true)
+              if(dummy[e?.layer?.feature.properties.id]?.geometry.type == "Polygon"){
+                setDrawer(true)
+              }
               setDemand(dummy[e?.layer?.feature.properties.id]?.properties?.demandWDDay)
               setCapacity(dummy[e?.layer?.feature.properties.id]?.properties?.capacity)
               setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.generation)
               setRes(dummy[e?.layer?.feature.properties.id]?.properties?.res)
-
               if(mode===0.2){
                 setEnergy(e?.layer?.feature.properties?.energyWDNight )
               }
@@ -419,7 +421,7 @@ function App() {
               // }
               setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage)
               // setDemand(dummy[featureId]?.properties?.demandWDDayyyy)
-
+            
 
             },
           }}
@@ -524,7 +526,6 @@ function App() {
                       </MenuItem>
                     </Select>
                   </Grid>
-                  
                   <Grid item xs>
                     Mode
                   </Grid>
@@ -589,7 +590,7 @@ function App() {
                 <StyledTableCell align="left">
                   <TextField
                     id="outlined-size-small"
-                    value={demand.toFixed(2) || ""}
+                    value={demand || ""}
                     size="small"
                     type="number"
                     InputProps={{
@@ -665,7 +666,7 @@ function App() {
                 </StyledTableCell>
               </StyledTableRow>
               <StyledTableRow>
-                <StyledTableCell sx={{ fontWeight: "Medium" }}>Res</StyledTableCell>
+                <StyledTableCell sx={{ fontWeight: "Medium" }}>Net energy</StyledTableCell>
                 <StyledTableCell align="left">
                   <TextField
                     id="outlined-size-small"
@@ -693,9 +694,8 @@ function App() {
             </Box>
           </Drawer>
         </Control>
-
       </MapContainer>
-      <Legend/>
+      {/* <Legend/> */}
     </>
   )
   // let polygon
