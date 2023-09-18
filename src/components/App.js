@@ -106,9 +106,21 @@ function App() {
   const [items, setItems] = useState("none")
   const [active, setActive] = useState(false)
   const [checked, setChecked] = useState(false)
+  const [red, setRed] = useState([])
+  const [green, setGreen] = useState([])
 
 
   const [openDrawer, setDrawer] = useState(false)
+
+  // let combined = red.concat(green)
+
+  let uniqueRed = [...new Set(red)];
+  let uniqueGreen = [...new Set(green)];
+
+  console.log(uniqueGreen)
+  console.log(uniqueRed)
+  
+
 
   const handleDrawerOpen = () => {
     setDrawer(true)
@@ -217,6 +229,8 @@ function App() {
           setEStorage(items[featureId]?.properties?.energyStorage)
         }, 3000)
         setOldMode(mode)
+        setRed([])
+        setGreen([])
         setCanSave(true)
       }
 
@@ -236,8 +250,16 @@ function App() {
       layer.setStyle({ radius: 6, className: 't1' })
     } else if (feature.properties?.description === 'solar' && feature.properties?.res >= 0) {
       layer.setStyle({ className: 'solarBuildingGn' })
+      
+      // green.push(feature.properties?.con)
+       
+
     } else if (feature.properties?.description === 'solar' && feature.properties?.res < 0) {
       layer.setStyle({ className: 'solarBuildingRd' })
+      
+      // red.push(feature.properties?.con)
+
+
     }else if (feature.geometry.type === 'Polygon') {
       layer.setStyle({ className: 'building' })
     } else {
@@ -257,6 +279,24 @@ function App() {
       layer.setStyle({ radius: 10, className: 'bigCirc' })
    
     }
+    if(feature.properties?.description === 'solar'){
+      if(feature.properties?.group=="COE-CAB-CAS-NBERIC-RDE"){
+        const add = []
+      add.push([])
+      console.log(add)
+      }
+    }
+
+    uniqueRed.map((val)=>{
+      if(feature.geometry.type === 'LineString'){
+        if(val===feature.properties?.con){
+          layer.setStyle({ className: 'lineReverse' })
+        }
+
+ 
+      }
+    })
+
 
 
     // feature.properties.id=
@@ -269,7 +309,7 @@ function App() {
     });
 
     
-
+    
     // Access the properties of each feature
     const { name } = feature.properties;
 
@@ -277,45 +317,59 @@ function App() {
     layer.bindPopup(`<b>${name}</b>`)
   };
 
-
   useEffect(() => {
     let newItems = []
     mmsu.features.map((object, index) => {
       newItems = [...newItems, { ...object, properties: { id: index, ...object.properties } }]
+      if(object.properties?.description==="solar"&&object.properties?.res<0){
+        setRed(prevArray=>[...prevArray, object.properties?.con])
+      }
     })
     setItems(newItems)
     setDummy(newItems) 
   }, [])
 
-  // useEffect(() => {
-  //   const geoJsonLayer = geoJsonLayerRef.current;
-  //   if (geoJsonLayer) {
-  //     geoJsonLayer.eachLayer((layer) => {
-  //       // const isSelected = layer.feature.geometry.type === 'LineString'
-  //       const isSolarBldg = layer.feature.geometry.type === 'Polygon'
-  //       // const isSelected = layer.feature.properties.Name === selectedFeatureId;
+  useEffect(() => {
+    const geoJsonLayer = geoJsonLayerRef.current;
+    if (geoJsonLayer) {
+      geoJsonLayer.eachLayer((layer) => {
+        // const isSelected = layer.feature.geometry.type === 'LineString'
+        // const isSolarBldg = layer.feature.geometry.type === 'Polygon'
+        // const isSelected = layer.feature.properties.Name === selectedFeatureId;
 
-  //       const element = layer.getElement();
-  //       if(isSolarBldg && layer.feature.properties?.res<0){
-  //         L.DomUtil.addClass(element, 'solarBuildingRd');
-  //       }if(isSolarBldg && layer.feature.properties?.res>=0){
-  //         L.DomUtil.removeClass(element, 'solarBuildingRd');
+        // const element = layer.getElement();
+        // if(isSolarBldg && layer.feature.properties?.res<0){
+        //   L.DomUtil.addClass(element, 'solarBuildingRd');
+        // }if(isSolarBldg && layer.feature.properties?.res>=0){
+        //   L.DomUtil.removeClass(element, 'solarBuildingRd');
          
-  //       }
+        // }
+        if(layer.feature.properties?.description === 'solar'){
+          if(layer.feature.properties?.res < 0){
+            setRed(prevArray =>[...prevArray, layer.feature.properties?.con])
+          }
 
-  //       console.log(layer.feature.properties?.res)
-  //       // if (isSelected && checked) {
-  //       //   L.DomUtil.addClass(element, 'lineForward');
-  //       // } else {
-  //       //   L.DomUtil.removeClass(element, 'lineForward');
-  //       // }
-  //     });
-  //   }
+        }
+        // if(layer.feature.properties?.description === 'solar'){
+        //   if(layer.feature.properties?.res >= 0){
+        //     setGreen(prevArray => [...prevArray, layer.feature.properties?.con])
+            
+        //   }
+        // }
+
+        // console.log(layer.feature.properties?.res)
+
+        
+        // if (isSelected && checked) {
+        //   L.DomUtil.addClass(element, 'lineForward');
+        // } else {
+        //   L.DomUtil.removeClass(element, 'lineForward');
+        // }
+      });
+    }
     
-  // }, [checked, items])
+  }, [checked, items])
 
-  // console.log(items[159])
-  // console.log((generation+(eStorage*0.8))-energy)
   const onResetClicked = () => {
   
     // let resetItems = []
@@ -357,7 +411,6 @@ function App() {
 
   }
 
-  // console.log(demand)
 
 
   const mapContainer = (

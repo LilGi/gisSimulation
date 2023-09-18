@@ -124,8 +124,8 @@
                 ]
             },
             "properties": {
-                "name": "P10=3-167=CAS",
-                "res": -52,
+                "name": "P10=3-167",
+                "con": "P10=3-167=CAS",
                 "tessellate": true
             }
         },
@@ -153,6 +153,7 @@
             },
             "properties": {
                 "name": "p10=3-167=CAB",
+                "con": "p10=3-167=CAB",
                 "tessellate": true
             }
         },
@@ -213,7 +214,8 @@
                 ]
             },
             "properties": {
-                "name": "P10=3-100=COE",
+                "name": "P10=3-100",
+                "con": "P10=3-100=COE",
                 "tessellate": true
             }
         },
@@ -315,7 +317,8 @@
                     ]
             },
             "properties": {
-                "name": "P7=3-167=RDE",
+                "name": "P7=3-167",
+                "con": "P7=3-167=RDE",
                 "tessellate": true
             }
         },
@@ -445,20 +448,20 @@
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5493136500084,
-                        18.05970197916429,
-                        0
-                    ],
-                    [
                         120.5492032823708,
                         18.05972310005557,
                         0
+                    ],
+                    [
+                        120.5493136500084,
+                        18.05970197916429,
+                        0
                     ]
-
                 ]
             },
             "properties": {
                 "name": "P5=3-167",
+                "con": "P5=3-167=ADMIN",
                 "tessellate": true
             }
         },
@@ -568,7 +571,8 @@
                 ]
             },
             "properties": {
-                "name": "P1=3-50=CFL",
+                "name": "P1=3-50",
+                "con": "P1=3-50=CFL",
                 "tessellate": true
             }
         },
@@ -1320,33 +1324,7 @@
                 "name": "P19"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.553658878152,
-                        18.05759465779525,
-                        0
-                    ],
-                    [
-                        120.5538558181674,
-                        18.0580103233409,
-                        0
-                    ],
-                    [
-                        120.5543693455665,
-                        18.05755756978548,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P18-P21",
-                "tessellate": true
-            }
-        },
+
         {
             "type": "Feature",
             "geometry": {
@@ -1436,6 +1414,16 @@
                 "type": "LineString",
                 "coordinates": [
                     [
+                        120.5541411216619,
+                        18.05679048720881,
+                        0
+                    ],
+                    [
+                        120.5542985097091,
+                        18.0569022646843,
+                        0
+                    ],
+                    [
                         120.5543034879717,
                         18.0569041366611,
                         0
@@ -1444,11 +1432,29 @@
                         120.5543688712661,
                         18.05755453277835,
                         0
+                    ],
+                    [
+                        120.5543693455665,
+                        18.05755756978548,
+                        0
+                    ],
+                    [
+                        120.5538558181674,
+                        18.0580103233409,
+                        0
+                    ],
+                    [
+                        120.553658878152,
+                        18.05759465779525,
+                        0
                     ]
+
+
                 ]
             },
             "properties": {
-                "name": "P21-P22",
+                "name": "P18=1-150",
+                "con": "P18=1-150=STUDENTCENTER",
                 "tessellate": true
             }
         },
@@ -1466,28 +1472,7 @@
                 "name": "Untitled Placemark"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.5541411216619,
-                        18.05679048720881,
-                        0
-                    ],
-                    [
-                        120.5542985097091,
-                        18.0569022646843,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P22=1-150=STUDENTCENTER",
-                "tessellate": true
-            }
-        },
+
         {
             "type": "Feature",
             "geometry": {
@@ -1712,11 +1697,22 @@
                         120.5549835527438,
                         18.057369438808,
                         0
+                    ],
+                    [
+                        120.5549820142691,
+                        18.05736940428866,
+                        0
+                    ],
+                    [
+                        120.5543663143619,
+                        18.05756012858765,
+                        0
                     ]
                 ]
             },
             "properties": {
                 "name": "P25=3-75",
+                "con": "P25=3-75=CBEA",
                 "tessellate": true
             }
         },
@@ -1748,33 +1744,32 @@
                 "name": "P26"
             }
         },
+
         {
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
                     [
-                        120.5549820142691,
-                        18.05736940428866,
+                        120.5576072071286,
+                        18.05908453796201,
                         0
                     ],
                     [
-                        120.5543663143619,
-                        18.05756012858765,
+                        120.5572537232734,
+                        18.059320963454,
                         0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P21-P25",
-                "tessellate": true
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
+                    ],
+                    [
+                        120.5572523369973,
+                        18.05933039581442,
+                        0
+                    ],
+                    [
+                        120.5561309894764,
+                        18.05700664463008,
+                        0
+                    ],
                     [
                         120.5561301353201,
                         18.05700963912767,
@@ -1788,32 +1783,12 @@
                 ]
             },
             "properties": {
-                "name": "P25-P26",
+                "name": "P25-P31=COM",
+                "con": "P31-P34=COM",
                 "tessellate": true
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.5572523369973,
-                        18.05933039581442,
-                        0
-                    ],
-                    [
-                        120.5561309894764,
-                        18.05700664463008,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "Untitled Path",
-                "tessellate": true
-            }
-        },
+
         {
             "type": "Feature",
             "geometry": {
@@ -1984,28 +1959,7 @@
                 "name": "P31"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.5576072071286,
-                        18.05908453796201,
-                        0
-                    ],
-                    [
-                        120.5572537232734,
-                        18.059320963454,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P30-P31",
-                "tessellate": true
-            }
-        },
+
         {
             "type": "Feature",
             "geometry": {
@@ -2079,7 +2033,8 @@
                 ]
             },
             "properties": {
-                "name": "P31-P34=COM",
+                "name": "P31-P34",
+                "con": "P31-P34=COM",
                 "tessellate": true
             }
         },
@@ -2171,7 +2126,8 @@
                 ]
             },
             "properties": {
-                "name": "P9=3-167=NBERIC",
+                "name": "P9=3-167",
+                "con": "P9=3-167=NBERIC",
                 "tessellate": true
             }
         },
@@ -2593,6 +2549,8 @@
             },
             "properties": {
                 "name": "MMSU-COE",
+                "con": "P10=3-100=COE",
+                "group": "COE-CAB-CAS-NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 640,
                 "energyWDNight": 80,
@@ -2645,6 +2603,8 @@
             },
             "properties": {
                 "name": "MMSU-CAB",
+                "con": "p10=3-167=CAB",
+                "group": "COE-CAB-CAS-NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
@@ -2697,6 +2657,8 @@
             },
             "properties": {
                 "name": "MMSU-CAS",
+                "con": "P10=3-167=CAS",
+                "group": "COE-CAB-CAS-NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 440,
                 "energyWDNight": 80,
@@ -2839,6 +2801,8 @@
             },
             "properties": {
                 "name": "MMSU-RDE",
+                "con": "P7=3-167=RDE",
+                "group": "COE-CAB-CAS-NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 260,
                 "energyWDNight": 30,
@@ -3139,6 +3103,7 @@
             },
             "properties": {
                 "name": "MMSU-ADMIN",
+                "con":"P5=3-167=ADMIN",
                 "description": "solar",
                 "energyWDDay": 1392,
                 "energyWDNight": 72,
@@ -4340,6 +4305,7 @@
             },
             "properties": {
                 "name": "MMSU-CETC/MOTORPOOL",
+                "con": "P0-P1=CETC",
                 "description": "solar",
                 "energyWDDay": 48,
                 "energyWDNight": 16,
@@ -4998,6 +4964,7 @@
             },
             "properties": {
                 "name": "MMSU-STUDENTCENTER",
+                "con": "P18=1-150=STUDENTCENTER",
                 "description": "solar",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
@@ -5619,6 +5586,7 @@
             },
             "properties": {
                 "name": "MMSU-CBEA",
+                "con": "P25=3-75=CBEA",
                 "description": "solar",
                 "energyWDDay": 224,
                 "energyWDNight": 56,
@@ -6252,6 +6220,7 @@
             },
             "properties": {
                 "name": "MMSU-COM",
+                "con": "P31-P34=COM",
                 "description": "solar",
                 "energyWDDay": 330,
                 "energyWDNight": 50,
@@ -6454,6 +6423,7 @@
             },
             "properties": {
                 "name": "MMSU-CFL",
+                "con": "P1=3-50=CFL",
                 "description": "solar",
                 "energyWDDay": 732,
                 "energyWDNight": 72,
@@ -7164,6 +7134,8 @@
             },
             "properties": {
                 "name": "MMSU-NBERIC",
+                "con": "P9=3-167=NBERIC",
+                "group": "COE-CAB-CAS-NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 112,
                 "energyWDNight": 70,
@@ -7216,7 +7188,6 @@
             },
             "properties": {
                 "name": "MMSU-COE-CED",
-                "description": "solar",
                 "energyWDDay": 640,
                 "energyWDNight": 80,
                 "energyWEDay": 0,
@@ -7354,7 +7325,8 @@
                 ]
             },
             "properties": {
-                "name": "P0-P1=CFL=CETC=DORM",
+                "name": "P0-P1",
+                "con": "P0-P1=CETC",
                 "tessellate": true
             }
         },
