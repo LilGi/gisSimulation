@@ -75,7 +75,7 @@
                 ]
             },
             "properties": {
-                "name": "p7-p9",
+                "name": "P7-P9",
                 "tessellate": true
             }
         },
@@ -97,7 +97,7 @@
                 ]
             },
             "properties": {
-                "name": "p9-p10",
+                "name": "P9-P10",
                 "tessellate": true
             }
         },
@@ -735,6 +735,7 @@
             },
             "properties": {
                 "name": "P1-P2=CETC",
+                "con": "P1-P2=CETC",
                 "tessellate": true
             }
         },
@@ -1005,7 +1006,7 @@
                 ]
             },
             "properties": {
-                "name": "P14-15",
+                "name": "P14-P15",
                 "tessellate": true
             }
         },
@@ -1023,33 +1024,7 @@
                 "name": "Untitled Placemark"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.5501364499321,
-                        18.05779766911703,
-                        0
-                    ],
-                    [
-                        120.5492985769417,
-                        18.05787478208738,
-                        0
-                    ],
-                    [
-                        120.5486528467419,
-                        18.0579621169617,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P6-P14",
-                "tessellate": true
-            }
-        },
+
         {
             "type": "Feature",
             "geometry": {
@@ -1069,6 +1044,7 @@
             },
             "properties": {
                 "name": "P7-P6",
+                "groupres": 0,
                 "tessellate": true
             }
         },
@@ -1199,6 +1175,31 @@
                 "type": "LineString",
                 "coordinates": [
                     [
+                        120.5543693455665,
+                        18.05755756978548,
+                        0
+                    ],
+                    [
+                        120.5538558181674,
+                        18.0580103233409,
+                        0
+                    ],
+                    [
+                        120.553658878152,
+                        18.05759465779525,
+                        0
+                    ],
+                    [
+                        120.5536588550082,
+                        18.05759467787945,
+                        0
+                    ],
+                    [
+                        120.5531561504629,
+                        18.05772410524503,
+                        0
+                    ],
+                    [
                         120.5531559739345,
                         18.05772981248025,
                         0
@@ -1222,11 +1223,26 @@
                         120.5501333616813,
                         18.05780130463549,
                         0
+                    ],
+                    [
+                        120.5501364499321,
+                        18.05779766911703,
+                        0
+                    ],
+                    [
+                        120.5492985769417,
+                        18.05787478208738,
+                        0
+                    ],
+                    [
+                        120.5486528467419,
+                        18.0579621169617,
+                        0
                     ]
                 ]
             },
             "properties": {
-                "name": "P14-P16",
+                "name": "P14-P21",
                 "tessellate": true
             }
         },
@@ -1249,28 +1265,6 @@
             },
             "properties": {
                 "name": "P16=3-100",
-                "tessellate": true
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        120.5536588550082,
-                        18.05759467787945,
-                        0
-                    ],
-                    [
-                        120.5531561504629,
-                        18.05772410524503,
-                        0
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "P16-P18",
                 "tessellate": true
             }
         },
@@ -1432,32 +1426,18 @@
                         120.5543688712661,
                         18.05755453277835,
                         0
-                    ],
-                    [
-                        120.5543693455665,
-                        18.05755756978548,
-                        0
-                    ],
-                    [
-                        120.5538558181674,
-                        18.0580103233409,
-                        0
-                    ],
-                    [
-                        120.553658878152,
-                        18.05759465779525,
-                        0
                     ]
-
 
                 ]
             },
             "properties": {
-                "name": "P18=1-150",
+                "name": "P21=1-150",
                 "con": "P18=1-150=STUDENTCENTER",
                 "tessellate": true
             }
         },
+
+
         {
             "type": "Feature",
             "geometry": {
@@ -2550,7 +2530,7 @@
             "properties": {
                 "name": "MMSU-COE",
                 "con": "P10=3-100=COE",
-                "group": "COE-CAB-CAS-NBERIC-RDE",
+                "group": "COE-CAB-CAS",
                 "description": "solar",
                 "energyWDDay": 640,
                 "energyWDNight": 80,
@@ -2561,9 +2541,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 400,
-                "generation": 0,
+                "generation": 1880,
                 "photoVoltaic": 0,
                 "energyStorage": 200,
+                "maxEnergyStorage": 200,
                 "res": 1240
             }
         },
@@ -2604,7 +2585,7 @@
             "properties": {
                 "name": "MMSU-CAB",
                 "con": "p10=3-167=CAB",
-                "group": "COE-CAB-CAS-NBERIC-RDE",
+                "group": "COE-CAB-CAS",
                 "description": "solar",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
@@ -2615,9 +2596,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 360,
-                "generation": 0,
+                "generation": 1692,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 1692
             }
         },
@@ -2658,7 +2640,7 @@
             "properties": {
                 "name": "MMSU-CAS",
                 "con": "P10=3-167=CAS",
-                "group": "COE-CAB-CAS-NBERIC-RDE",
+                "group": "COE-CAB-CAS",
                 "description": "solar",
                 "energyWDDay": 440,
                 "energyWDNight": 80,
@@ -2669,9 +2651,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
-                "generation": 0,
+                "generation": 940,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 500
             }
         },
@@ -2802,7 +2785,7 @@
             "properties": {
                 "name": "MMSU-RDE",
                 "con": "P7=3-167=RDE",
-                "group": "COE-CAB-CAS-NBERIC-RDE",
+                "group": "NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 260,
                 "energyWDNight": 30,
@@ -2813,9 +2796,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
-                "generation": 0,
+                "generation": 940,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 680
             }
         },
@@ -3114,9 +3098,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 100,
-                "generation": 0,
+                "generation": 470,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": -922
             }
         },
@@ -4305,7 +4290,8 @@
             },
             "properties": {
                 "name": "MMSU-CETC/MOTORPOOL",
-                "con": "P0-P1=CETC",
+                "con": "P1-P2=CETC",
+                "group": "CFL-CETC",
                 "description": "solar",
                 "energyWDDay": 48,
                 "energyWDNight": 16,
@@ -4316,9 +4302,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 200,
-                "generation": 0,
+                "generation": 940,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 892
             }
         },
@@ -4965,6 +4952,7 @@
             "properties": {
                 "name": "MMSU-STUDENTCENTER",
                 "con": "P18=1-150=STUDENTCENTER",
+                "group": "STU-CBEA-COM",
                 "description": "solar",
                 "energyWDDay": 0,
                 "energyWDNight": 0,
@@ -4975,9 +4963,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 360,
-                "generation": 0,
+                "generation": 1692,
                 "photoVoltaic": 0,
                 "energyStorage": 1400,
+                "maxEnergyStorage": 1400,
                 "res": 1692
             }
         },
@@ -5587,6 +5576,7 @@
             "properties": {
                 "name": "MMSU-CBEA",
                 "con": "P25=3-75=CBEA",
+                "group": "STU-CBEA-COM",
                 "description": "solar",
                 "energyWDDay": 224,
                 "energyWDNight": 56,
@@ -5597,9 +5587,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 300,
-                "generation": 0,
+                "generation": 1410,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 1186
             }
         },
@@ -6221,6 +6212,7 @@
             "properties": {
                 "name": "MMSU-COM",
                 "con": "P31-P34=COM",
+                "group": "STU-CBEA-COM",
                 "description": "solar",
                 "energyWDDay": 330,
                 "energyWDNight": 50,
@@ -6231,9 +6223,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 380,
-                "generation": 0,
+                "generation": 1786,
                 "photoVoltaic": 0,
                 "energyStorage": 0,
+                "maxEnergyStorage": 0,
                 "res": 1456
             }
         },
@@ -6424,6 +6417,7 @@
             "properties": {
                 "name": "MMSU-CFL",
                 "con": "P1=3-50=CFL",
+                "group": "CFL-CETC",
                 "description": "solar",
                 "energyWDDay": 732,
                 "energyWDNight": 72,
@@ -6434,9 +6428,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 400,
-                "generation": 0,
+                "generation": 1880,
                 "photoVoltaic": 0,
                 "energyStorage": 200,
+                "maxEnergyStorage": 200,
                 "res": 1148
             }
         },
@@ -7135,7 +7130,7 @@
             "properties": {
                 "name": "MMSU-NBERIC",
                 "con": "P9=3-167=NBERIC",
-                "group": "COE-CAB-CAS-NBERIC-RDE",
+                "group": "NBERIC-RDE",
                 "description": "solar",
                 "energyWDDay": 112,
                 "energyWDNight": 70,
@@ -7146,9 +7141,10 @@
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 100,
-                "generation": 0,
+                "generation": 470,
                 "photoVoltaic": 0,
                 "energyStorage": 200,
+                "maxEnergyStorage": 200,
                 "res": 358
             }
         },
@@ -7326,7 +7322,6 @@
             },
             "properties": {
                 "name": "P0-P1",
-                "con": "P0-P1=CETC",
                 "tessellate": true
             }
         },

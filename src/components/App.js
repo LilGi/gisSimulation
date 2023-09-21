@@ -5,7 +5,7 @@ import L from 'leaflet'; // Import the Leaflet library
 import { SnackBar } from './Snackbar'
 import { Legend } from './Legend'
 import mmsu from '../MMSUPRE1.json'
-import { Box, Button, CssBaseline, Drawer, Grid, IconButton, InputAdornment, Link, MenuItem, Paper, Select, Switch, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography, styled, ListItemText, ListItemIcon } from '@mui/material';
+import { Box, Button, CssBaseline, Drawer, Grid, IconButton, InputAdornment, Link, MenuItem, Paper, Select, Switch, Table, TableBody, TableContainer, TableHead, TableRow, TextField, Typography, styled, ListItemText, ListItemIcon, Slider } from '@mui/material';
 import Control from 'react-leaflet-custom-control'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import {
@@ -91,8 +91,8 @@ function App() {
   const [oldMode, setOldMode] = useState(mode)
   const [xValues, setXValues] = useState(null)
 
-  const [featureId, setFeatureId] = useState('')
-  const [building, setBuilding] = useState('')
+  const [featureId, setFeatureId] = useState(0)
+  const [building, setBuilding] = useState(0)
   const [demand, setDemand] = useState(0)
   const [energy, setEnergy] = useState(0)
   const [capacity, setCapacity] = useState(0)
@@ -107,19 +107,20 @@ function App() {
   const [active, setActive] = useState(false)
   const [checked, setChecked] = useState(false)
   const [red, setRed] = useState([])
-  const [green, setGreen] = useState([])
+
+  const [netGrpCCC, setNetGrpCCC] = useState(0)
+  const [netGrpNBERICRDE, setNetGrpNBERICRDE] = useState(0)
+  const [netGrpSTUCBEACOM, setNetGrpSTUCBEACOM] = useState(0)
+  const [netGrpCFLCETC, setNetGrpCFLCETC] = useState(0)
+
+  const [max, setMax] = useState(0)
+  const [percent, setPercent] = useState(0)
 
 
   const [openDrawer, setDrawer] = useState(false)
 
-  // let combined = red.concat(green)
 
   let uniqueRed = [...new Set(red)];
-  let uniqueGreen = [...new Set(green)];
-
-  console.log(uniqueGreen)
-  console.log(uniqueRed)
-  
 
 
   const handleDrawerOpen = () => {
@@ -131,7 +132,6 @@ function App() {
 
   const pointToLayer = (feature, latlng) => {
     return L.circleMarker(latlng, {
-
       // className: 'button', // Assign a unique CSS class for each feature
     });
   };
@@ -176,8 +176,10 @@ function App() {
 
   const onEStorageChanged = (e) => {
     setEStorage(parseFloat(e.target.value))
+ 
     setCanSave(true)
   }
+  console.log(eStorage)
   const onResChanged = (e) => {
     setRes(parseFloat(e.target.value))
     setCanSave(true)
@@ -202,13 +204,14 @@ function App() {
               (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (object?.properties?.energyWDDay * energyFlow * powerFlow)
             }
           }]
+
         })
         setLoading(true)
         setTimeout(() => {
           setLoading(false)
           setDummy(newItems)
           setDemand(oldMode != mode ? items[featureId]?.properties?.demandWDDay * powerFlow * mode : items[featureId]?.properties?.demandWDDay * powerFlow)
-          setCapacity(items[featureId]?.properties?.capacity)
+          // setCapacity(items[featureId]?.properties?.capacity)
           if(mode===0.2){
             setGeneration(0)
             setEnergy(items[featureId]?.properties?.energyWDNight * energyFlow * powerFlow)
@@ -227,18 +230,21 @@ function App() {
             console.log("kababaan")
           }
           setEStorage(items[featureId]?.properties?.energyStorage)
-        }, 3000)
+        }, 2000)
         setOldMode(mode)
         setRed([])
-        setGreen([])
         setCanSave(true)
       }
 
     
-  }, [energyFlow, powerFlow, mode, weather])
+  }, [energyFlow, powerFlow, mode, weather, canSave])
 
 
 
+  let sumCCC = 0
+  let sumNBERICRDE = 0
+  let sumSTUCBEACOM = 0
+  let sumCFLCETC = 0
 
   const onEachFeature = (feature, layer) => {
     
@@ -277,15 +283,25 @@ function App() {
     }
     if(feature.properties.name==='KWHR METER'){
       layer.setStyle({ radius: 10, className: 'bigCirc' })
+ 
+    }
+    if(feature.properties.name==='P7-P9' && netGrpNBERICRDE<0){
+      layer.setStyle({ className: 'lineReverse' })
    
     }
-    if(feature.properties?.description === 'solar'){
-      if(feature.properties?.group=="COE-CAB-CAS-NBERIC-RDE"){
-        const add = []
-      add.push([])
-      console.log(add)
-      }
+    if(feature.properties.name==='P9-P10' && netGrpCCC<0){
+      layer.setStyle({ className: 'lineReverse' })
     }
+    if(feature.properties.name==='P7-P6' && netGrpCCC+netGrpNBERICRDE<0){
+      layer.setStyle({ className: 'lineReverse' })
+    }
+    if(feature.properties.name==='P14-P21' && netGrpSTUCBEACOM<0){
+      layer.setStyle({ className: 'lineReverse' })
+    }
+    if(feature.properties.name==='P0-P1' && netGrpCFLCETC<0){
+      layer.setStyle({ className: 'lineReverse' })
+    }
+
 
     uniqueRed.map((val)=>{
       if(feature.geometry.type === 'LineString'){
@@ -350,6 +366,19 @@ function App() {
           }
 
         }
+        if (layer.feature.properties?.description === 'solar' && layer.feature.properties?.group === "COE-CAB-CAS") {
+          setNetGrpCCC(sumCCC += layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.description === 'solar' && layer.feature.properties?.group === "NBERIC-RDE") {
+          setNetGrpNBERICRDE(sumNBERICRDE += layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.description === 'solar' && layer.feature.properties?.group === "STU-CBEA-COM") {
+          setNetGrpSTUCBEACOM(sumSTUCBEACOM += layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.description === 'solar' && layer.feature.properties?.group === "CFL-CETC") {
+          setNetGrpCFLCETC(sumCFLCETC+= layer.feature.properties?.res)
+        }
+
         // if(layer.feature.properties?.description === 'solar'){
         //   if(layer.feature.properties?.res >= 0){
         //     setGreen(prevArray => [...prevArray, layer.feature.properties?.con])
@@ -368,8 +397,7 @@ function App() {
       });
     }
     
-  }, [checked, items])
-
+  }, [openDrawer, items])
   const onResetClicked = () => {
   
     // let resetItems = []
@@ -454,7 +482,7 @@ function App() {
               }
               setDemand(dummy[e?.layer?.feature.properties.id]?.properties?.demandWDDay)
               setCapacity(dummy[e?.layer?.feature.properties.id]?.properties?.capacity)
-              setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.generation)
+              setGeneration(mode==0.2 ? 0 :dummy[e?.layer?.feature.properties.id]?.properties?.generation)
               setRes(dummy[e?.layer?.feature.properties.id]?.properties?.res)
               if(mode===0.2){
                 setEnergy(e?.layer?.feature.properties?.energyWDNight )
@@ -473,6 +501,7 @@ function App() {
               //   setRes((dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather + (dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage*0.8)) - dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
               // }
               setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage)
+              setMax(dummy[e?.layer?.feature.properties.id]?.properties?.maxEnergyStorage)
               // setDemand(dummy[featureId]?.properties?.demandWDDayyyy)
             
 
@@ -536,7 +565,6 @@ function App() {
                   </Grid>
                   <Grid item xs>
                     Weather Condition
-             
                   </Grid>
                   <Grid item xs={8}>
                     <Select
@@ -691,7 +719,7 @@ function App() {
                 <StyledTableCell align="left">
                   <TextField
                     id="outlined-size-small"
-                    value={generation || ""}
+                    value={generation}
                     size="small"
                     type="number"
                     InputProps={{
@@ -705,6 +733,14 @@ function App() {
               <StyledTableRow>
                 <StyledTableCell sx={{ fontWeight: "Medium" }}>Energy Storage</StyledTableCell>
                 <StyledTableCell align="left">
+                        <Slider
+                          size="small"
+                          value={ eStorage || 0}
+                          max={max}
+                          aria-label="Small"
+                          valueLabelDisplay="auto"
+                          onChange={onEStorageChanged}
+                        />
                   <TextField
                     id="outlined-size-small"
                     value={eStorage || ""}
