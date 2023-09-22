@@ -125,6 +125,32 @@ function App() {
   const [netCBEA, setNetCBEA] = useState(mmsu.features[198]?.properties?.res)
   const [netCOM, setNetCOM] = useState(mmsu.features[212]?.properties?.res)
 
+  const [genCOE, setGenCOE] = useState(mmsu.features[139]?.properties?.generation)
+  const [genCAB, setGenCAB] = useState(mmsu.features[140]?.properties?.generation)
+  const [genCAS, setGenCAS] = useState(mmsu.features[141]?.properties?.generation)
+  const [genNBERIC, setGenNBERIC] = useState(mmsu.features[224]?.properties?.generation)
+  const [genRDE, setGenRDE] = useState(mmsu.features[142]?.properties?.generation)
+  const [genADMIN, setGenADMIN] = useState(mmsu.features[145]?.properties?.generation)
+  const [genCFL, setGenCFL] = useState(mmsu.features[215]?.properties?.generation)
+  const [genCETC, setGenCETC] = useState(mmsu.features[171]?.properties?.generation)
+  const [genSTUDENTCENTER, setGenSTUDENTCENTER] = useState(mmsu.features[186]?.properties?.generation)
+  const [genCBEA, setGenCBEA] = useState(mmsu.features[198]?.properties?.generation)
+  const [genCOM, setGenCOM] = useState(mmsu.features[212]?.properties?.generation)
+
+  const [netDORMITORY, setNetDORMITORY] = useState(mmsu.features[164]?.properties?.res)
+  const [netLIBRARY, setNetLIBRARY] = useState(mmsu.features[149]?.properties?.res)
+  const [netCAFSD, setNetCAFSD] = useState(mmsu.features[176]?.properties?.res)
+  const [netTEATRO, setNetTEATRO] = useState(mmsu.features[181]?.properties?.res)
+  const [netFPIC, setNetFPIC] = useState(mmsu.features[183]?.properties?.res)
+  const [netSNT, setNetSNT] = useState(mmsu.features[184]?.properties?.res)
+
+
+  const [eStorageCOE, setEStorageCOE] = useState(mmsu.features[139]?.properties?.res)
+  const [eStorageNBERIC, setEStorageNBERIC] = useState(mmsu.features[224]?.properties?.res)
+  const [eStorageCFL, setEStorageCFL] = useState(mmsu.features[215]?.properties?.res)
+  const [eStorageSTUDENTCENTER, setEStorageSTUDENTCENTER] = useState(mmsu.features[186]?.properties?.res)
+
+
   const [totalNet, setTotalNet] = useState(
     mmsu.features[139]?.properties?.res
     + mmsu.features[140]?.properties?.res
@@ -136,7 +162,13 @@ function App() {
     + mmsu.features[171]?.properties?.res
     + mmsu.features[186]?.properties?.res
     + mmsu.features[198]?.properties?.res
-    + mmsu.features[212]?.properties?.res)
+    + mmsu.features[212]?.properties?.res
+    + mmsu.features[164]?.properties?.res
+    + mmsu.features[149]?.properties?.res
+    + mmsu.features[176]?.properties?.res
+    + mmsu.features[181]?.properties?.res
+    + mmsu.features[183]?.properties?.res
+    + mmsu.features[184]?.properties?.res)
 
 
   const [max, setMax] = useState(0)
@@ -259,7 +291,7 @@ function App() {
         setOldMode(mode)
         setRed([])
         setCanSave(true)
-        console.log("fired")
+
       }
   }, [energyFlow, powerFlow, mode, weather, items])
 
@@ -297,7 +329,7 @@ function App() {
       layer.setStyle({ radius: 10, className: 'bigCirc' })
     }
     if(feature.properties.name==='KWHR METER'){
-      layer.setStyle({ radius: 10, className: 'bigCirc' })
+      layer.setStyle({ radius: 12, className: 'bigCirc' })
  
     }
     if(feature.properties.name==='P7-P9' && netGrpNBERICRDE<0){
@@ -348,55 +380,120 @@ function App() {
     if(feature.properties.name==='KWHR METER'){
       layer.bindPopup(`<table>
         <tr>
-          <th>Building</th>
+          <th>Buildings</th>
+          <th>Generation (kWh)</th>
+          <th>Energy Storage (kWh)</th>
           <th>Net Energy (kWh)</th>
         </tr>
         <tr>
           <td>COE</td>
+          <td>${genCOE.toFixed(2)}</td>
+          <td>${eStorageCOE.toFixed(2)}</td>
           <td>${netCOE.toFixed(2)}</td>
+
         </tr>
         <tr>
           <td>CAB</td>
+          <td>${genCAB.toFixed(2)}</td>
+          <td>0</td>
           <td>${netCAB.toFixed(2)}</td>
+
         </tr>
         <tr>
           <td>CAS</td>
+          <td>${genCAS.toFixed(2)}</td>
+          <td>0</td>
           <td>${netCAS.toFixed(2)}</td>
+
         </tr>
         <tr>
           <td>NBERIC</td>
+          <td>${genNBERIC.toFixed(2)}</td>
+          <td>${eStorageNBERIC.toFixed(2)}</td>
           <td>${netNBERIC.toFixed(2)}</td>
         </tr>
         <tr>
           <td>RDE</td>
+          <td>${genRDE.toFixed(2)}</td>
+          <td>0</td>
           <td>${netRDE.toFixed(2)}</td>
         </tr>
         <tr>
           <td>ADMIN</td>
+          <td>${genADMIN.toFixed(2)}</td>
+          <td>0</td>
           <td>${netADMIN.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CFL</td>
+          <td>${genCFL.toFixed(2)}</td>
+          <td>${eStorageCFL.toFixed(2)}</td>
           <td>${netCFL.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CETC</td>
+          <td>${genCETC.toFixed(2)}</td>
+          <td>0</td>
           <td>${netCETC.toFixed(2)}</td>
         </tr>
         <tr>
-          <td>STUDENT CENTER</td>
+          <td>STU. CENTER</td>
+          <td>${genSTUDENTCENTER.toFixed(2)}</td>
+          <td>${eStorageSTUDENTCENTER.toFixed(2)}</td>
           <td>${netSTUDENTCENTER.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CBEA</td>
+          <td>${genCBEA.toFixed(2)}</td>
+          <td>0</td>
           <td>${netCBEA.toFixed(2)}</td>
         </tr>
         <tr>
           <td>COM</td>
+          <td>${genCOM.toFixed(2)}</td>
+          <td>0</td>
           <td>${netCOM.toFixed(2)}</td>
         </tr>
         <tr>
+          <td>DORMITORY</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netDORMITORY.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>LIBRARY</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netLIBRARY.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CAFSD</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netCAFSD.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>TEATRO</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netTEATRO.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>FPIC</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netFPIC.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>S & T</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${netSNT.toFixed(2)}</td>
+        </tr>
+        <tr>
           <td><b>TOTAL</b></td>
+          <td></td>
+          <td></td>
           <td><b>${totalNet.toFixed(2)}</b></td>
         </tr>
       </table>`)
@@ -451,38 +548,75 @@ function App() {
         }
         if (layer.feature.properties?.name === 'MMSU-COE') {
           setNetCOE(layer.feature.properties?.res)
+          setEStorageCOE(layer.feature.properties?.energyStorage)
+          setGenCOE(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAB') {
           setNetCAB(layer.feature.properties?.res)
+                    setGenCAB(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAS') {
           setNetCAS(layer.feature.properties?.res)
+          setGenCAS(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-NBERIC') {
           setNetNBERIC(layer.feature.properties?.res)
+          setEStorageNBERIC(layer.feature.properties?.energyStorage)
+          setGenNBERIC(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-RDE') {
           setNetRDE(layer.feature.properties?.res)
+          setGenRDE(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-ADMIN') {
           setNetADMIN(layer.feature.properties?.res)
+          setGenADMIN(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CFL') {
           setNetCFL(layer.feature.properties?.res)
+          setEStorageCFL(layer.feature.properties?.energyStorage)
+                   setGenCFL(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CETC/MOTORPOOL') {
           setNetCETC(layer.feature.properties?.res)
+          setGenCETC(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-STUDENTCENTER') {
           setNetSTUDENTCENTER(layer.feature.properties?.res)
+          setEStorageSTUDENTCENTER(layer.feature.properties?.energyStorage)
+          setGenSTUDENTCENTER(layer.feature.properties?.generation)
+          
         }
         if (layer.feature.properties?.name === 'MMSU-CBEA') {
           setNetCBEA(layer.feature.properties?.res)
+          setGenCBEA(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-COM') {
           setNetCOM(layer.feature.properties?.res)
+          setGenCOM(layer.feature.properties?.generation)
         }
-        setTotalNet(netCOE+netCAB+netCAS+netNBERIC+netRDE+netADMIN+netCFL+netCETC+netSTUDENTCENTER+netCBEA+netCOM)
+
+
+        if (layer.feature.properties?.name === 'MMSU-DORMITORY-1') {
+          setNetDORMITORY(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-LIBRARY') {
+          setNetLIBRARY(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CAFSD') {
+          setNetCAFSD(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'TEATRO-ILOCANDIA') {
+          setNetTEATRO(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-FPIC') {
+          setNetFPIC(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-SCIENCE-AND-TECHNOLOGY') {
+          setNetSNT(layer.feature.properties?.res)
+        }
+        
+        setTotalNet(netCOE+netCAB+netCAS+netNBERIC+netRDE+netADMIN+netCFL+netCETC+netSTUDENTCENTER+netCBEA+netCOM+netDORMITORY+netLIBRARY+netCAFSD+netTEATRO+netFPIC+netSNT)
 
         // if(layer.feature.properties?.description === 'solar'){
         //   if(layer.feature.properties?.res >= 0){
@@ -546,7 +680,7 @@ function App() {
 
   }
 
-
+  
 
   const mapContainer = (
     <>

@@ -2587,11 +2587,11 @@
                 "con": "p10=3-167=CAB",
                 "group": "COE-CAB-CAS",
                 "description": "solar",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 220,
+                "energyWDNight": 40,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 80,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -2600,7 +2600,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 0,
                 "maxEnergyStorage": 0,
-                "res": 1692
+                "res": 1472
             }
         },
         {
@@ -3323,7 +3323,7 @@
             },
             "properties": {
                 "name": "MMSU-LIBRARY",
-                "energyWDDay": 480,
+                "energyWDDay": 240,
                 "energyWDNight": 40,
                 "energyWEDay": 0,
                 "energyWENight": 0,
@@ -3334,7 +3334,7 @@
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "res": 0
+                "res": -240
             }
         },
         {
@@ -3764,11 +3764,11 @@
             "properties": {
                 "name": "MMSU-DORMITORY",
                 "description": "mmsu-building",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 48,
+                "energyWDNight": 16,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -3815,11 +3815,11 @@
             "properties": {
                 "name": "MMSU-DORMITORY",
                 "description": "mmsu-building",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 48,
+                "energyWDNight": 16,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -3972,20 +3972,21 @@
                 ]
             },
             "properties": {
-                "name": "MMSU-DORMITORY",
+                "name": "MMSU-DORMITORY-1",
                 "description": "mmsu-building",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 48,
+                "energyWDNight": 16,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": -48
             }
         },
         {
@@ -4025,11 +4026,11 @@
             "properties": {
                 "name": "MMSU-DORMITORY",
                 "description": "mmsu-building",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 48,
+                "energyWDNight": 16,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 37.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -4514,8 +4515,8 @@
             "properties": {
                 "name": "MMSU-CAFSD",
                 "description": "mmsu-building",
-                "energyWDDay": 259.2,
-                "energyWDNight": 43.2,
+                "energyWDDay": 250,
+                "energyWDNight": 43,
                 "energyWEDay": 0,
                 "energyWENight": 0,
                 "demandWDDay": 96,
@@ -4525,7 +4526,8 @@
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": -250
             }
         },
         {
@@ -4720,7 +4722,20 @@
             },
             "properties": {
                 "name": "TEATRO-ILOCANDIA",
-                "tessellate": true
+                "description": "mmsu-building",
+                "energyWDDay": 150,
+                "energyWDNight": 40,
+                "energyWEDay": 0,
+                "energyWENight": 0,
+                "demandWDDay": 96,
+                "demandWDNight": 0,
+                "demandWEDay": 0,
+                "demandWENight": 0,
+                "capacity": 0,
+                "generation": 0,
+                "photoVoltaic": 0,
+                "energyStorage": 0,
+                "res": -150
             }
         },
         {
@@ -4810,7 +4825,8 @@
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": -120
             }
         },
         {
@@ -4861,7 +4877,8 @@
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
-                "energyStorage": 0
+                "energyStorage": 0,
+                "res": -120
             }
         },
         {
@@ -4954,11 +4971,11 @@
                 "con": "P18=1-150=STUDENTCENTER",
                 "group": "STU-CBEA-COM",
                 "description": "solar",
-                "energyWDDay": 0,
-                "energyWDNight": 0,
+                "energyWDDay": 112,
+                "energyWDNight": 28,
                 "energyWEDay": 0,
                 "energyWENight": 0,
-                "demandWDDay": 0,
+                "demandWDDay": 71.6,
                 "demandWDNight": 0,
                 "demandWEDay": 0,
                 "demandWENight": 0,
@@ -4967,7 +4984,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 1400,
                 "maxEnergyStorage": 1400,
-                "res": 2812
+                "res": 2700
             }
         },
         {
