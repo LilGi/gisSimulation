@@ -113,8 +113,34 @@ function App() {
   const [netGrpSTUCBEACOM, setNetGrpSTUCBEACOM] = useState(0)
   const [netGrpCFLCETC, setNetGrpCFLCETC] = useState(0)
 
+  const [netCOE, setNetCOE] = useState(mmsu.features[139]?.properties?.res)
+  const [netCAB, setNetCAB] = useState(mmsu.features[140]?.properties?.res)
+  const [netCAS, setNetCAS] = useState(mmsu.features[141]?.properties?.res)
+  const [netNBERIC, setNetNBERIC] = useState(mmsu.features[224]?.properties?.res)
+  const [netRDE, setNetRDE] = useState(mmsu.features[142]?.properties?.res)
+  const [netADMIN, setNetADMIN] = useState(mmsu.features[145]?.properties?.res)
+  const [netCFL, setNetCFL] = useState(mmsu.features[215]?.properties?.res)
+  const [netCETC, setNetCETC] = useState(mmsu.features[171]?.properties?.res)
+  const [netSTUDENTCENTER, setNetSTUDENTCENTER] = useState(mmsu.features[186]?.properties?.res)
+  const [netCBEA, setNetCBEA] = useState(mmsu.features[198]?.properties?.res)
+  const [netCOM, setNetCOM] = useState(mmsu.features[212]?.properties?.res)
+
+  const [totalNet, setTotalNet] = useState(
+    mmsu.features[139]?.properties?.res
+    + mmsu.features[140]?.properties?.res
+    + mmsu.features[141]?.properties?.res
+    + mmsu.features[224]?.properties?.res
+    + mmsu.features[142]?.properties?.res
+    + mmsu.features[145]?.properties?.res
+    + mmsu.features[215]?.properties?.res
+    + mmsu.features[171]?.properties?.res
+    + mmsu.features[186]?.properties?.res
+    + mmsu.features[198]?.properties?.res
+    + mmsu.features[212]?.properties?.res)
+
+
   const [max, setMax] = useState(0)
-  const [percent, setPercent] = useState(0)
+  const [percent, setPercent] = useState(100)
 
 
   const [openDrawer, setDrawer] = useState(false)
@@ -176,10 +202,16 @@ function App() {
 
   const onEStorageChanged = (e) => {
     setEStorage(parseFloat(e.target.value))
- 
+
     setCanSave(true)
   }
-  console.log(eStorage)
+
+  const onPercentChanged = (e) => {
+    setPercent(parseFloat(e.target.value))
+    setEStorage(max * (parseFloat(e.target.value)/100))
+    setCanSave(true)
+  }
+
   const onResChanged = (e) => {
     setRes(parseFloat(e.target.value))
     setCanSave(true)
@@ -198,10 +230,8 @@ function App() {
               energyWDDay: object?.properties?.energyWDDay * energyFlow * powerFlow,
               capacity: object?.properties?.capacity,
               generation: object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow,
-              res: mode==0.2 ?  (object?.properties?.energyStorage * 0.8 * energyFlow * powerFlow) - (object?.properties?.energyWDNight * energyFlow * powerFlow) : 
-              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (object?.properties?.energyWDDay * energyFlow * powerFlow) ? 
-              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (object?.properties?.energyStorage*0.8)) - (object?.properties?.energyWDDay * energyFlow * powerFlow) : 
-              (object?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (object?.properties?.energyWDDay * energyFlow * powerFlow)
+              res: mode==0.2 ?  (object?.properties?.energyStorage * (percent/100) * 0.8 * energyFlow * powerFlow) - (object?.properties?.energyWDNight * energyFlow * powerFlow) : 
+              (object?.properties?.capacity * (percent/100) * 4.7 * energyFlow * weather * energyFlow * powerFlow + (object?.properties?.energyStorage*0.8)) - (object?.properties?.energyWDDay * energyFlow * powerFlow)
             }
           }]
 
@@ -217,29 +247,21 @@ function App() {
             setEnergy(items[featureId]?.properties?.energyWDNight * energyFlow * powerFlow)
             setRes( (items[featureId]?.properties?.energyStorage * 0.8 * energyFlow * powerFlow) - (items[featureId]?.properties?.energyWDNight* energyFlow * powerFlow))
             console.log("night")
-          }else if((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) < (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)){
-            setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
-            setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
-            setRes((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (items[featureId]?.properties?.energyStorage*0.8)) - (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow))
-            console.log("gen < demand")
           }
           else{
             setEnergy(items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow)
             setGeneration(items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather)
-            setRes((items[featureId]?.properties.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow) - (items[featureId]?.properties.energyWDDay * energyFlow * powerFlow))
-            console.log("kababaan")
+            setRes((items[featureId]?.properties?.capacity * 4.7 * energyFlow * weather * energyFlow * powerFlow + (items[featureId]?.properties?.energyStorage*0.8)) - (items[featureId]?.properties?.energyWDDay * energyFlow * powerFlow))
+            console.log("day")
           }
-          setEStorage(items[featureId]?.properties?.energyStorage)
+          // setEStorage(items[featureId]?.properties?.energyStorage)
         }, 2000)
         setOldMode(mode)
         setRed([])
         setCanSave(true)
+        console.log("fired")
       }
-
-    
-  }, [energyFlow, powerFlow, mode, weather, canSave])
-
-
+  }, [energyFlow, powerFlow, mode, weather, items])
 
   let sumCCC = 0
   let sumNBERICRDE = 0
@@ -251,21 +273,14 @@ function App() {
     if (feature.properties?.description === 'T3') {
       layer.setStyle({ radius: 6, className: 't3' })
     }
-    
     else if (feature.properties?.description === 'T1') {
       layer.setStyle({ radius: 6, className: 't1' })
     } else if (feature.properties?.description === 'solar' && feature.properties?.res >= 0) {
       layer.setStyle({ className: 'solarBuildingGn' })
-      
       // green.push(feature.properties?.con)
-       
-
     } else if (feature.properties?.description === 'solar' && feature.properties?.res < 0) {
       layer.setStyle({ className: 'solarBuildingRd' })
-      
       // red.push(feature.properties?.con)
-
-
     }else if (feature.geometry.type === 'Polygon') {
       layer.setStyle({ className: 'building' })
     } else {
@@ -302,7 +317,6 @@ function App() {
       layer.setStyle({ className: 'lineReverse' })
     }
 
-
     uniqueRed.map((val)=>{
       if(feature.geometry.type === 'LineString'){
         if(val===feature.properties?.con){
@@ -331,6 +345,63 @@ function App() {
 
     // Bind a popup to each feature
     layer.bindPopup(`<b>${name}</b>`)
+    if(feature.properties.name==='KWHR METER'){
+      layer.bindPopup(`<table>
+        <tr>
+          <th>Building</th>
+          <th>Net Energy (kWh)</th>
+        </tr>
+        <tr>
+          <td>COE</td>
+          <td>${netCOE.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CAB</td>
+          <td>${netCAB.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CAS</td>
+          <td>${netCAS.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>NBERIC</td>
+          <td>${netNBERIC.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>RDE</td>
+          <td>${netRDE.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>ADMIN</td>
+          <td>${netADMIN.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CFL</td>
+          <td>${netCFL.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CETC</td>
+          <td>${netCETC.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>STUDENT CENTER</td>
+          <td>${netSTUDENTCENTER.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>CBEA</td>
+          <td>${netCBEA.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td>COM</td>
+          <td>${netCOM.toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td><b>TOTAL</b></td>
+          <td><b>${totalNet.toFixed(2)}</b></td>
+        </tr>
+      </table>`)
+ 
+    }
   };
 
   useEffect(() => {
@@ -378,6 +449,40 @@ function App() {
         if (layer.feature.properties?.description === 'solar' && layer.feature.properties?.group === "CFL-CETC") {
           setNetGrpCFLCETC(sumCFLCETC+= layer.feature.properties?.res)
         }
+        if (layer.feature.properties?.name === 'MMSU-COE') {
+          setNetCOE(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CAB') {
+          setNetCAB(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CAS') {
+          setNetCAS(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-NBERIC') {
+          setNetNBERIC(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-RDE') {
+          setNetRDE(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-ADMIN') {
+          setNetADMIN(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CFL') {
+          setNetCFL(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CETC/MOTORPOOL') {
+          setNetCETC(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-STUDENTCENTER') {
+          setNetSTUDENTCENTER(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-CBEA') {
+          setNetCBEA(layer.feature.properties?.res)
+        }
+        if (layer.feature.properties?.name === 'MMSU-COM') {
+          setNetCOM(layer.feature.properties?.res)
+        }
+        setTotalNet(netCOE+netCAB+netCAS+netNBERIC+netRDE+netADMIN+netCFL+netCETC+netSTUDENTCENTER+netCBEA+netCOM)
 
         // if(layer.feature.properties?.description === 'solar'){
         //   if(layer.feature.properties?.res >= 0){
@@ -398,6 +503,7 @@ function App() {
     }
     
   }, [openDrawer, items])
+
   const onResetClicked = () => {
   
     // let resetItems = []
@@ -423,6 +529,7 @@ function App() {
     setPowerFlow(1)
     setWeather(1)
     setMode(1)
+    setPercent(100)
     setItems("none")
     // setDemand('')
     // setEnergy('')
@@ -485,10 +592,10 @@ function App() {
               setGeneration(mode==0.2 ? 0 :dummy[e?.layer?.feature.properties.id]?.properties?.generation)
               setRes(dummy[e?.layer?.feature.properties.id]?.properties?.res)
               if(mode===0.2){
-                setEnergy(e?.layer?.feature.properties?.energyWDNight )
+                setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDNight )
               }
               else{
-                setEnergy(e?.layer?.feature.properties?.energyWDDay)
+                setEnergy(dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
               }
 
               // if(mode==0.2){
@@ -500,8 +607,8 @@ function App() {
               //   setGeneration(dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather)
               //   setRes((dummy[e?.layer?.feature.properties.id]?.properties?.capacity * 4.7 * energyFlow * weather + (dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage*0.8)) - dummy[e?.layer?.feature.properties.id]?.properties?.energyWDDay)
               // }
-              setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage)
-              setMax(dummy[e?.layer?.feature.properties.id]?.properties?.maxEnergyStorage)
+              setEStorage(dummy[e?.layer?.feature.properties.id]?.properties?.energyStorage * (percent/100) || 0)
+              setMax(dummy[e?.layer?.feature.properties.id]?.properties?.maxEnergyStorage || 0)
               // setDemand(dummy[featureId]?.properties?.demandWDDayyyy)
             
 
@@ -734,12 +841,14 @@ function App() {
                 <StyledTableCell sx={{ fontWeight: "Medium" }}>Energy Storage</StyledTableCell>
                 <StyledTableCell align="left">
                         <Slider
-                          size="small"
-                          value={ eStorage || 0}
-                          max={max}
-                          aria-label="Small"
+                          aria-label="Battery percentage"
+                          value={percent}
                           valueLabelDisplay="auto"
-                          onChange={onEStorageChanged}
+                          step={10}
+                          marks
+                          min={10}
+                          max={100}
+                          onChange={onPercentChanged}
                         />
                   <TextField
                     id="outlined-size-small"

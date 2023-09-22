@@ -2545,7 +2545,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 200,
                 "maxEnergyStorage": 200,
-                "res": 1240
+                "res": 1400
             }
         },
         {
@@ -4967,7 +4967,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 1400,
                 "maxEnergyStorage": 1400,
-                "res": 1692
+                "res": 2812
             }
         },
         {
@@ -6432,7 +6432,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 200,
                 "maxEnergyStorage": 200,
-                "res": 1148
+                "res": 1308
             }
         },
         {
@@ -7145,7 +7145,7 @@
                 "photoVoltaic": 0,
                 "energyStorage": 200,
                 "maxEnergyStorage": 200,
-                "res": 358
+                "res": 518
             }
         },
         {

@@ -256,3 +256,15 @@
     stroke: red;
   }
 }
+
+
+
+
+td, th {
+  text-align: left;
+  padding: 3px;
+}
+
+tr:nth-child(odd) {
+  background-color: #e0e0e0;
+}
