@@ -588,61 +588,61 @@ function App() {
           setECCOE(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCOE(layer.feature.properties?.res)
           setEStorageCOE(layer.feature.properties?.energyStorage)
-          setGenCOE(layer.feature.properties?.generation)
+          setGenCOE(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAB') {
           setECCAB(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCAB(layer.feature.properties?.res)
-          setGenCAB(layer.feature.properties?.generation)
+          setGenCAB(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAS') {
           setECCAS(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCAS(layer.feature.properties?.res)
-          setGenCAS(layer.feature.properties?.generation)
+          setGenCAS(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-NBERIC') {
           setECNBERIC(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetNBERIC(layer.feature.properties?.res)
           setEStorageNBERIC(layer.feature.properties?.energyStorage)
-          setGenNBERIC(layer.feature.properties?.generation)
+          setGenNBERIC(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-RDE') {
           setECRDE(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetRDE(layer.feature.properties?.res)
-          setGenRDE(layer.feature.properties?.generation)
+          setGenRDE(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-ADMIN') {
           setECADMIN(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetADMIN(layer.feature.properties?.res)
-          setGenADMIN(layer.feature.properties?.generation)
+          setGenADMIN(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CFL') {
           setECCFL(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCFL(layer.feature.properties?.res)
           setEStorageCFL(layer.feature.properties?.energyStorage)
-                   setGenCFL(layer.feature.properties?.generation)
+                   setGenCFL(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CETC/MOTORPOOL') {
           setECCETC(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCETC(layer.feature.properties?.res)
-          setGenCETC(layer.feature.properties?.generation)
+          setGenCETC(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-STUDENTCENTER') {
           setECSTUDENTCENTER(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetSTUDENTCENTER(layer.feature.properties?.res)
           setEStorageSTUDENTCENTER(layer.feature.properties?.energyStorage)
-          setGenSTUDENTCENTER(layer.feature.properties?.generation)
+          setGenSTUDENTCENTER(mode==0.2 ? 0 : layer.feature.properties?.generation)
           
         }
         if (layer.feature.properties?.name === 'MMSU-CBEA') {
           setECCBEA(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCBEA(layer.feature.properties?.res)
-          setGenCBEA(layer.feature.properties?.generation)
+          setGenCBEA(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-COM') {
           setECCOM(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCOM(layer.feature.properties?.res)
-          setGenCOM(layer.feature.properties?.generation)
+          setGenCOM(mode==0.2 ? 0 : layer.feature.properties?.generation)
         }
 
 
