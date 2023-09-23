@@ -3323,8 +3323,9 @@
             },
             "properties": {
                 "name": "MMSU-LIBRARY",
+                "description": "mmsu-building",
                 "energyWDDay": 240,
-                "energyWDNight": 40,
+                "energyWDNight": 43,
                 "energyWEDay": 0,
                 "energyWENight": 0,
                 "demandWDDay": 160,
@@ -3334,6 +3335,7 @@
                 "capacity": 0,
                 "generation": 0,
                 "photoVoltaic": 0,
+                "energyStorage": 0,
                 "res": -240
             }
         },

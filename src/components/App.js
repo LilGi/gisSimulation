@@ -125,6 +125,13 @@ function App() {
   const [netCBEA, setNetCBEA] = useState(mmsu.features[198]?.properties?.res)
   const [netCOM, setNetCOM] = useState(mmsu.features[212]?.properties?.res)
 
+  const [netDORMITORY, setNetDORMITORY] = useState(mmsu.features[164]?.properties?.res)
+  const [netLIBRARY, setNetLIBRARY] = useState(mmsu.features[149]?.properties?.res)
+  const [netCAFSD, setNetCAFSD] = useState(mmsu.features[176]?.properties?.res)
+  const [netTEATRO, setNetTEATRO] = useState(mmsu.features[181]?.properties?.res)
+  const [netFPIC, setNetFPIC] = useState(mmsu.features[183]?.properties?.res)
+  const [netSNT, setNetSNT] = useState(mmsu.features[184]?.properties?.res)
+
   const [genCOE, setGenCOE] = useState(mmsu.features[139]?.properties?.generation)
   const [genCAB, setGenCAB] = useState(mmsu.features[140]?.properties?.generation)
   const [genCAS, setGenCAS] = useState(mmsu.features[141]?.properties?.generation)
@@ -137,12 +144,24 @@ function App() {
   const [genCBEA, setGenCBEA] = useState(mmsu.features[198]?.properties?.generation)
   const [genCOM, setGenCOM] = useState(mmsu.features[212]?.properties?.generation)
 
-  const [netDORMITORY, setNetDORMITORY] = useState(mmsu.features[164]?.properties?.res)
-  const [netLIBRARY, setNetLIBRARY] = useState(mmsu.features[149]?.properties?.res)
-  const [netCAFSD, setNetCAFSD] = useState(mmsu.features[176]?.properties?.res)
-  const [netTEATRO, setNetTEATRO] = useState(mmsu.features[181]?.properties?.res)
-  const [netFPIC, setNetFPIC] = useState(mmsu.features[183]?.properties?.res)
-  const [netSNT, setNetSNT] = useState(mmsu.features[184]?.properties?.res)
+  const [eCCOE, setECCOE] = useState(mmsu.features[139]?.properties?.energyWDDay)
+  const [eCCAB, setECCAB] = useState(mmsu.features[140]?.properties?.energyWDDay)
+  const [eCCAS, setECCAS] = useState(mmsu.features[141]?.properties?.energyWDDay)
+  const [eCNBERIC, setECNBERIC] = useState(mmsu.features[224]?.properties?.energyWDDay)
+  const [eCRDE, setECRDE] = useState(mmsu.features[142]?.properties?.energyWDDay)
+  const [eCADMIN, setECADMIN] = useState(mmsu.features[145]?.properties?.energyWDDay)
+  const [eCCFL, setECCFL] = useState(mmsu.features[215]?.properties?.energyWDDay)
+  const [eCCETC, setECCETC] = useState(mmsu.features[171]?.properties?.energyWDDay)
+  const [eCSTUDENTCENTER, setECSTUDENTCENTER] = useState(mmsu.features[186]?.properties?.energyWDDay)
+  const [eCCBEA, setECCBEA] = useState(mmsu.features[198]?.properties?.energyWDDay)
+  const [eCCOM, setECCOM] = useState(mmsu.features[212]?.properties?.energyWDDay)
+
+  const [eCDORMITORY, setECDORMITORY] = useState(mmsu.features[164]?.properties?.energyWDDay)
+  const [eCLIBRARY, setECLIBRARY] = useState(mmsu.features[149]?.properties?.energyWDDay)
+  const [eCCAFSD, setECCAFSD] = useState(mmsu.features[176]?.properties?.energyWDDay)
+  const [eCTEATRO, setECTEATRO] = useState(mmsu.features[181]?.properties?.energyWDDay)
+  const [eCFPIC, setECFPIC] = useState(mmsu.features[183]?.properties?.energyWDDay)
+  const [eCSNT, setECSNT] = useState(mmsu.features[184]?.properties?.energyWDDay)
 
 
   const [eStorageCOE, setEStorageCOE] = useState(mmsu.features[139]?.properties?.res)
@@ -329,7 +348,7 @@ function App() {
       layer.setStyle({ radius: 10, className: 'bigCirc' })
     }
     if(feature.properties.name==='KWHR METER'){
-      layer.setStyle({ radius: 12, className: 'bigCirc' })
+      layer.setStyle({ radius: 14, className: 'bigCirc' })
  
     }
     if(feature.properties.name==='P7-P9' && netGrpNBERICRDE<0){
@@ -381,19 +400,22 @@ function App() {
       layer.bindPopup(`<table>
         <tr>
           <th>Buildings</th>
-          <th>Generation (kWh)</th>
-          <th>Energy Storage (kWh)</th>
-          <th>Net Energy (kWh)</th>
+          <th>E.C (kWh)</th>
+          <th>Gen (kWh)</th>
+          <th>E.S (kWh)</th>
+          <th>Net (kWh)</th>
         </tr>
         <tr>
           <td>COE</td>
+          <td>${eCCOE.toFixed(2)}</td>
           <td>${genCOE.toFixed(2)}</td>
-          <td>${eStorageCOE.toFixed(2)}</td>
+          <td>${eStorageCOE}</td>
           <td>${netCOE.toFixed(2)}</td>
 
         </tr>
         <tr>
           <td>CAB</td>
+          <td>${eCCAB.toFixed(2)}</td>
           <td>${genCAB.toFixed(2)}</td>
           <td>0</td>
           <td>${netCAB.toFixed(2)}</td>
@@ -401,6 +423,7 @@ function App() {
         </tr>
         <tr>
           <td>CAS</td>
+          <td>${eCCAS.toFixed(2)}</td>
           <td>${genCAS.toFixed(2)}</td>
           <td>0</td>
           <td>${netCAS.toFixed(2)}</td>
@@ -408,90 +431,105 @@ function App() {
         </tr>
         <tr>
           <td>NBERIC</td>
+          <td>${eCNBERIC.toFixed(2)}</td>
           <td>${genNBERIC.toFixed(2)}</td>
-          <td>${eStorageNBERIC.toFixed(2)}</td>
+          <td>${eStorageNBERIC}</td>
           <td>${netNBERIC.toFixed(2)}</td>
         </tr>
         <tr>
           <td>RDE</td>
+          <td>${eCRDE.toFixed(2)}</td>
           <td>${genRDE.toFixed(2)}</td>
           <td>0</td>
           <td>${netRDE.toFixed(2)}</td>
         </tr>
         <tr>
           <td>ADMIN</td>
+          <td>${eCADMIN.toFixed(2)}</td>
           <td>${genADMIN.toFixed(2)}</td>
           <td>0</td>
           <td>${netADMIN.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CFL</td>
+          <td>${eCCFL.toFixed(2)}</td>
           <td>${genCFL.toFixed(2)}</td>
-          <td>${eStorageCFL.toFixed(2)}</td>
+          <td>${eStorageCFL}</td>
           <td>${netCFL.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CETC</td>
+          <td>${eCCETC.toFixed(2)}</td>
           <td>${genCETC.toFixed(2)}</td>
           <td>0</td>
           <td>${netCETC.toFixed(2)}</td>
         </tr>
         <tr>
           <td>STU. CENTER</td>
+          <td>${eCSTUDENTCENTER.toFixed(2)}</td>
           <td>${genSTUDENTCENTER.toFixed(2)}</td>
-          <td>${eStorageSTUDENTCENTER.toFixed(2)}</td>
+          <td>${eStorageSTUDENTCENTER}</td>
           <td>${netSTUDENTCENTER.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CBEA</td>
+          <td>${eCCBEA.toFixed(2)}</td>
           <td>${genCBEA.toFixed(2)}</td>
           <td>0</td>
           <td>${netCBEA.toFixed(2)}</td>
         </tr>
         <tr>
           <td>COM</td>
+          <td>${eCCOM.toFixed(2)}</td>
           <td>${genCOM.toFixed(2)}</td>
           <td>0</td>
           <td>${netCOM.toFixed(2)}</td>
         </tr>
         <tr>
-          <td>DORMITORY</td>
+          <td>DORM</td>
+          <td>${eCDORMITORY.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netDORMITORY.toFixed(2)}</td>
         </tr>
         <tr>
           <td>LIBRARY</td>
+          <td>${eCLIBRARY.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netLIBRARY.toFixed(2)}</td>
         </tr>
         <tr>
           <td>CAFSD</td>
+          <td>${eCCAFSD.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netCAFSD.toFixed(2)}</td>
         </tr>
         <tr>
           <td>TEATRO</td>
+          <td>${eCTEATRO.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netTEATRO.toFixed(2)}</td>
         </tr>
         <tr>
           <td>FPIC</td>
+          <td>${eCFPIC.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netFPIC.toFixed(2)}</td>
         </tr>
         <tr>
           <td>S & T</td>
+          <td>${eCSNT.toFixed(2)}</td>
           <td>0</td>
           <td>0</td>
           <td>${netSNT.toFixed(2)}</td>
         </tr>
         <tr>
           <td><b>TOTAL</b></td>
+          <td></td>
           <td></td>
           <td></td>
           <td><b>${totalNet.toFixed(2)}</b></td>
@@ -547,73 +585,90 @@ function App() {
           setNetGrpCFLCETC(sumCFLCETC+= layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'MMSU-COE') {
+          setECCOE(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCOE(layer.feature.properties?.res)
           setEStorageCOE(layer.feature.properties?.energyStorage)
           setGenCOE(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAB') {
+          setECCAB(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCAB(layer.feature.properties?.res)
-                    setGenCAB(layer.feature.properties?.generation)
+          setGenCAB(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CAS') {
+          setECCAS(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCAS(layer.feature.properties?.res)
           setGenCAS(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-NBERIC') {
+          setECNBERIC(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetNBERIC(layer.feature.properties?.res)
           setEStorageNBERIC(layer.feature.properties?.energyStorage)
           setGenNBERIC(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-RDE') {
+          setECRDE(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetRDE(layer.feature.properties?.res)
           setGenRDE(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-ADMIN') {
+          setECADMIN(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetADMIN(layer.feature.properties?.res)
           setGenADMIN(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CFL') {
+          setECCFL(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCFL(layer.feature.properties?.res)
           setEStorageCFL(layer.feature.properties?.energyStorage)
                    setGenCFL(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-CETC/MOTORPOOL') {
+          setECCETC(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCETC(layer.feature.properties?.res)
           setGenCETC(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-STUDENTCENTER') {
+          setECSTUDENTCENTER(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetSTUDENTCENTER(layer.feature.properties?.res)
           setEStorageSTUDENTCENTER(layer.feature.properties?.energyStorage)
           setGenSTUDENTCENTER(layer.feature.properties?.generation)
           
         }
         if (layer.feature.properties?.name === 'MMSU-CBEA') {
+          setECCBEA(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCBEA(layer.feature.properties?.res)
           setGenCBEA(layer.feature.properties?.generation)
         }
         if (layer.feature.properties?.name === 'MMSU-COM') {
+          setECCOM(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCOM(layer.feature.properties?.res)
           setGenCOM(layer.feature.properties?.generation)
         }
 
 
         if (layer.feature.properties?.name === 'MMSU-DORMITORY-1') {
+          setECDORMITORY(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetDORMITORY(layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'MMSU-LIBRARY') {
+          setECLIBRARY(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetLIBRARY(layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'MMSU-CAFSD') {
+          setECCAFSD(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetCAFSD(layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'TEATRO-ILOCANDIA') {
+          setECTEATRO(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetTEATRO(layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'MMSU-FPIC') {
+          setECFPIC(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
           setNetFPIC(layer.feature.properties?.res)
         }
         if (layer.feature.properties?.name === 'MMSU-SCIENCE-AND-TECHNOLOGY') {
           setNetSNT(layer.feature.properties?.res)
+          setECSNT(mode==0.2 ? layer.feature.properties?.energyWDNight : layer.feature.properties?.energyWDDay)
         }
         
         setTotalNet(netCOE+netCAB+netCAS+netNBERIC+netRDE+netADMIN+netCFL+netCETC+netSTUDENTCENTER+netCBEA+netCOM+netDORMITORY+netLIBRARY+netCAFSD+netTEATRO+netFPIC+netSNT)
